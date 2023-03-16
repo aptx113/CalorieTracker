@@ -9,6 +9,12 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
+repositories {
+    google()
+    gradlePluginPortal()
+    mavenCentral()
+}
+
 dependencies {
     compileOnly(libs.android.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
