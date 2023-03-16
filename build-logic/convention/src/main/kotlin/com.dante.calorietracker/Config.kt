@@ -7,4 +7,6 @@ object Config {
     const val TARGET_SDK = 33
     const val VERSION_CODE = 1
     const val VERSION_NAME = "1.0.0"
+
+    const val CORE_UI_NAME_SPACE = "com.dante.calorietracker.core.ui"
 }
