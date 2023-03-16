@@ -2,6 +2,7 @@ package com.dante.calorietracker.ext
 
 import com.dante.calorietracker.LibsVal.ANDROID_TEST_IMPLEMENTATION
 import com.dante.calorietracker.LibsVal.IMPLEMENTATION
+import com.dante.calorietracker.LibsVal.KSP
 import com.dante.calorietracker.LibsVal.TEST_IMPLEMENTATION
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 
@@ -14,3 +15,5 @@ fun DependencyHandlerScope.implement(dependencyNotation: Any) =
 
 fun DependencyHandlerScope.implementTest(dependencyNotation: Any) =
     add(TEST_IMPLEMENTATION, dependencyNotation)
+
+fun DependencyHandlerScope.ksp(dependencyNotation: Any) = add(KSP, dependencyNotation)
