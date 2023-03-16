@@ -8,5 +8,6 @@ object Config {
     const val VERSION_CODE = 1
     const val VERSION_NAME = "1.0.0"
 
+    const val CORE_COMMON_NAME_SPACE = "com.dante.calorietracker.core.common"
     const val CORE_UI_NAME_SPACE = "com.dante.calorietracker.core.ui"
 }
