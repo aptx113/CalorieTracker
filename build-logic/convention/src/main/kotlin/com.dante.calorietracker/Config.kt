@@ -18,4 +18,6 @@ object Config {
 
     const val FEATURE_ONBORADING_NAME_SPACE = "com.dante.calorietracker.feature.onboarding"
     const val FEATURE_TRACKER_NAME_SPACE = "com.dante.calorietracker.feature.tracker"
+
+    const val UI_TEST_HILT_NAME_SPACE = "com.dante.calorietracker.ui_test_hilt_manifest"
 }
