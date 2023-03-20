@@ -1,4 +1,5 @@
 import com.dante.calorietracker.Config
+import com.dante.calorietracker.ModulePath
 
 plugins {
     id("app.android.library")
@@ -12,4 +13,5 @@ android {
 
 dependencies {
     implementation(libs.kotlinx.coroutines.android)
+    testImplementation(project(ModulePath.CORE_TESTING))
 }
