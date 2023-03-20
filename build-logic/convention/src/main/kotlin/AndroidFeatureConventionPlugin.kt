@@ -6,6 +6,12 @@ import com.dante.calorietracker.LibsVal.LIBS
 import com.dante.calorietracker.LibsVal.LIFECYCLE_RUNTIME_COMPOSE
 import com.dante.calorietracker.LibsVal.LIFECYCLE_VIEWMODEL_COMPOSE
 import com.dante.calorietracker.LibsVal.TEST
+import com.dante.calorietracker.ModulePath.CORE_COMMON
+import com.dante.calorietracker.ModulePath.CORE_DATA
+import com.dante.calorietracker.ModulePath.CORE_DOMAIN
+import com.dante.calorietracker.ModulePath.CORE_MODEL
+import com.dante.calorietracker.ModulePath.CORE_TESTING
+import com.dante.calorietracker.ModulePath.CORE_UI
 import com.dante.calorietracker.PluginId.ANDROID_HILT_REGISTER_ID
 import com.dante.calorietracker.PluginId.ANDROID_LIBRARY_REGISTER_ID
 import com.dante.calorietracker.ext.implement
@@ -29,8 +35,16 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             val libs = extensions.getByType<VersionCatalogsExtension>().named(LIBS)
 
             dependencies {
+                implement(project(CORE_COMMON))
+                implement(project(CORE_DATA))
+                implement(project(CORE_DOMAIN))
+                implement(project(CORE_MODEL))
+                implement(project(CORE_UI))
+
                 implementTest(kotlin(TEST))
+                implementTest(project(CORE_TESTING))
                 implementAndroidTest(kotlin(TEST))
+                implementAndroidTest(project(CORE_TESTING))
 
                 implement(libs.findLibrary(COIL_KT).get())
                 implement(libs.findLibrary(COIL_KT_COMPOSE).get())

@@ -15,3 +15,12 @@ dependencyResolutionManagement {
 }
 rootProject.name = "CalorieTracker"
 include( ":app")
+include(":core:common")
+include(":core:data")
+include(":core:domain")
+include(":core:model")
+include(":core:testing")
+include(":core:ui")
+include(":feature:onboarding")
+include(":feature:tracker")
+include(":ui-test-hilt-manifest")
