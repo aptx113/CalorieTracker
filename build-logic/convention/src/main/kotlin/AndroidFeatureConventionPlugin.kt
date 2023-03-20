@@ -7,6 +7,8 @@ import com.dante.calorietracker.LibsVal.LIFECYCLE_RUNTIME_COMPOSE
 import com.dante.calorietracker.LibsVal.LIFECYCLE_VIEWMODEL_COMPOSE
 import com.dante.calorietracker.LibsVal.TEST
 import com.dante.calorietracker.ModulePath.CORE_COMMON
+import com.dante.calorietracker.ModulePath.CORE_DATA
+import com.dante.calorietracker.ModulePath.CORE_MODEL
 import com.dante.calorietracker.ModulePath.CORE_TESTING
 import com.dante.calorietracker.ModulePath.CORE_UI
 import com.dante.calorietracker.PluginId.ANDROID_HILT_REGISTER_ID
@@ -33,6 +35,8 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
 
             dependencies {
                 implement(project(CORE_COMMON))
+                implement(project(CORE_DATA))
+                implement(project(CORE_MODEL))
                 implement(project(CORE_UI))
 
                 implementTest(kotlin(TEST))

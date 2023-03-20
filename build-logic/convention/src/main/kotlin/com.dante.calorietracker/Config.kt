@@ -10,6 +10,7 @@ object Config {
     const val TEST_INSTRUMENTATION_RUNNER = "com.dante.calorietracker.core.testing.CalorieTrackerTestRunner"
 
     const val CORE_COMMON_NAME_SPACE = "com.dante.calorietracker.core.common"
+    const val CORE_DATA_NAME_SPACE = "com.dante.calorietracker.core.data"
     const val CORE_TESTING_NAME_SPACE = "com.dante.calorietracker.core.testing"
     const val CORE_UI_NAME_SPACE = "com.dante.calorietracker.core.ui"
 }
