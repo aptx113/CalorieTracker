@@ -7,4 +7,7 @@ object ModulePath {
     const val CORE_MODEL = ":core:model"
     const val CORE_TESTING = ":core:testing"
     const val CORE_UI = ":core:ui"
+
+    const val FEATURE_ONBOARDING = ":feature:onboarding"
+    const val FEATURE_TRACKER = ":feature:tracker"
 }

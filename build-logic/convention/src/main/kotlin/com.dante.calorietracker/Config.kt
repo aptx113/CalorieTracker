@@ -15,4 +15,7 @@ object Config {
     const val CORE_DOMAIN_NAME_SPACE = "com.dante.calorietracker.core.domain"
     const val CORE_TESTING_NAME_SPACE = "com.dante.calorietracker.core.testing"
     const val CORE_UI_NAME_SPACE = "com.dante.calorietracker.core.ui"
+
+    const val FEATURE_ONBORADING_NAME_SPACE = "com.dante.calorietracker.feature.onboarding"
+    const val FEATURE_TRACKER_NAME_SPACE = "com.dante.calorietracker.feature.tracker"
 }
