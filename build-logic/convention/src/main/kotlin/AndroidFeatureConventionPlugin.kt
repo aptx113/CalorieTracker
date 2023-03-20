@@ -8,6 +8,7 @@ import com.dante.calorietracker.LibsVal.LIFECYCLE_VIEWMODEL_COMPOSE
 import com.dante.calorietracker.LibsVal.TEST
 import com.dante.calorietracker.ModulePath.CORE_COMMON
 import com.dante.calorietracker.ModulePath.CORE_DATA
+import com.dante.calorietracker.ModulePath.CORE_DOMAIN
 import com.dante.calorietracker.ModulePath.CORE_MODEL
 import com.dante.calorietracker.ModulePath.CORE_TESTING
 import com.dante.calorietracker.ModulePath.CORE_UI
@@ -36,6 +37,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             dependencies {
                 implement(project(CORE_COMMON))
                 implement(project(CORE_DATA))
+                implement(project(CORE_DOMAIN))
                 implement(project(CORE_MODEL))
                 implement(project(CORE_UI))
 
