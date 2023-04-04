@@ -11,7 +11,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
 @VisibleForTesting
-val DarkColorScheme = darkColorScheme(
+val DarkDefaultColorScheme = darkColorScheme(
     primary = DarkPrimary,
     onPrimary = DarkOnPrimary,
     primaryContainer = DarkPrimaryContainer,
@@ -38,7 +38,7 @@ val DarkColorScheme = darkColorScheme(
 )
 
 @VisibleForTesting
-val LightColorScheme = lightColorScheme(
+val LightDefaultColorScheme = lightColorScheme(
     primary = LightPrimary,
     onPrimary = LightOnPrimary,
     primaryContainer = LightPrimaryContainer,
@@ -75,7 +75,7 @@ fun CalorieTrackerTheme(
         val context = LocalContext.current
         if (isDarkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
     } else {
-        if (isDarkTheme) DarkColorScheme else LightColorScheme
+        if (isDarkTheme) DarkDefaultColorScheme else LightDefaultColorScheme
     }
     val defaultBackgroundTheme = BackgroundTheme(color = colorScheme.background, tonalElevation = 2.dp)
 
