@@ -8,6 +8,8 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.File
 
 const val COMPOSE_METRICS = "compose-metrics"
@@ -27,14 +29,16 @@ internal fun Project.configureAndroidCompose(commonExtension: CommonExtension<*,
             kotlinCompilerExtensionVersion = libs.findVersion(COMPOSE_COMPILER_VER).get().toString()
         }
 
-        kotlinOptions {
-            freeCompilerArgs = freeCompilerArgs + buildComposeMetricsParameters()
-        }
-
         dependencies {
             val bom = libs.findLibrary(COMPOSE_BOM).get()
             implement(platform(bom))
             implementAndroidTest(platform(bom))
+        }
+    }
+
+    tasks.withType<KotlinCompile>().configureEach {
+        kotlinOptions {
+            freeCompilerArgs = freeCompilerArgs + buildComposeMetricsParameters()
         }
     }
 }
