@@ -1,4 +1,5 @@
 import com.dante.calorietracker.Config
+import com.dante.calorietracker.ModulePath.CORE_TESTING
 
 plugins {
     id("app.android.library")
@@ -28,4 +29,5 @@ dependencies {
     debugApi(libs.androidx.compose.ui.tooling)
     api(libs.androidx.compose.ui.tooling.preview)
     api(libs.androidx.compose.ui.util)
+    androidTestImplementation(project(CORE_TESTING))
 }
