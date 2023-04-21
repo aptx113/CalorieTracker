@@ -6,8 +6,8 @@ import com.dante.calorietracker.ModulePath.CORE_TESTING
 plugins {
     id("app.android.library")
     id("app.android.library.jacoco")
-    id("app.android.hilt")
     id("kotlinx-serialization")
+    id("app.android.hilt")
 }
 
 android {

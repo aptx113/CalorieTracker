@@ -7,8 +7,8 @@ plugins {
     id("app.android.application.compose")
     id("app.android.application.flavors")
     id("app.android.application.jacoco")
-    id("app.android.hilt")
     id("jacoco")
+    id("app.android.hilt")
 }
 
 android {
@@ -38,7 +38,7 @@ android {
         }
     }
 
-    packagingOptions {
+    packaging {
         resources {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
