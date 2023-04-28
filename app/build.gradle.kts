@@ -52,6 +52,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":feature:welcome"))
+
     implementation(project(":core:common"))
     implementation(project(":core:data"))
     implementation(project(":core:domain"))

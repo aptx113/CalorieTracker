@@ -16,8 +16,17 @@ object Config {
     const val CORE_TESTING_NAME_SPACE = "com.dante.calorietracker.core.testing"
     const val CORE_UI_NAME_SPACE = "com.dante.calorietracker.core.ui"
 
-    const val FEATURE_ONBORADING_NAME_SPACE = "com.dante.calorietracker.feature.onboarding"
-    const val FEATURE_TRACKER_NAME_SPACE = "com.dante.calorietracker.feature.tracker"
+    const val activityNameSpace = "com.dante.calorietracker.feature.activity"
+    const val ageNameSpace = "com.dante.calorietracker.feature.age"
+    const val genderNameSpace = "com.dante.calorietracker.feature.gender"
+    const val goalNameSpace = "com.dante.calorietracker.feature.goal"
+    const val heightNameSpace = "com.dante.calorietracker.feature.height"
+    const val nutrientGoalNameSpace = "com.dante.calorietracker.feature.nutrientgoal"
+    const val searchNameSpace = "com.dante.calorietracker.feature.search"
+    const val trackerNameSpace = "com.dante.calorietracker.feature.tracker"
+    const val weightNameSpace = "com.dante.calorietracker.feature.weight"
+    const val welcomeNameSpace = "com.dante.calorietracker.feature.welcome"
+
 
     const val UI_TEST_HILT_NAME_SPACE = "com.dante.calorietracker.ui_test_hilt_manifest"
 }
