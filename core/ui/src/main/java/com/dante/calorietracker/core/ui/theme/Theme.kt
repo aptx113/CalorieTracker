@@ -4,11 +4,17 @@ import android.os.Build
 import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.dante.calorietracker.core.ui.unit.Dimensions
+import com.dante.calorietracker.core.ui.unit.LocalSpacing
 
 @VisibleForTesting
 val DarkDefaultColorScheme = darkColorScheme(
@@ -77,14 +83,18 @@ fun CalorieTrackerTheme(
     } else {
         if (isDarkTheme) DarkDefaultColorScheme else LightDefaultColorScheme
     }
-    val defaultBackgroundTheme = BackgroundTheme(color = colorScheme.background, tonalElevation = 2.dp)
+    val defaultBackgroundTheme =
+        BackgroundTheme(color = colorScheme.background, tonalElevation = 2.dp)
 
     val tintTheme =
         if (!disableDynamicTheming && supportsDynamicTheming()) TintTheme(colorScheme.primary) else TintTheme()
 
+    val defaultSpacing = Dimensions()
+
     CompositionLocalProvider(
         LocalBackgroundTheme provides defaultBackgroundTheme,
-        LocalTintTheme provides tintTheme
+        LocalTintTheme provides tintTheme,
+        LocalSpacing provides defaultSpacing
     ) {
         MaterialTheme(
             colorScheme = colorScheme,
