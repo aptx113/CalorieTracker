@@ -20,15 +20,15 @@ import com.dante.calorietracker.core.ui.theme.CalorieTrackerTheme
 import com.dante.calorietracker.core.ui.unit.LocalSpacing
 
 @Composable
-internal fun WelcomeRoute() {
-    WelcomeScreen()
+internal fun WelcomeRoute(onAgeNavigated: () -> Unit, modifier: Modifier = Modifier) {
+    WelcomeScreen(onAgeNavigated, modifier)
 }
 
 @Composable
-internal fun WelcomeScreen() {
+internal fun WelcomeScreen(onAgeNavigated: () -> Unit, modifier: Modifier = Modifier) {
     val spacing = LocalSpacing.current
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -38,7 +38,10 @@ internal fun WelcomeScreen() {
             style = MaterialTheme.typography.displayLarge
         )
         Spacer(modifier = Modifier.height(spacing.space16))
-        AppButton(onClick = { /*TODO*/ }, modifier = Modifier.align(Alignment.CenterHorizontally)) {
+        AppButton(
+            onClick = onAgeNavigated,
+            modifier = modifier.align(Alignment.CenterHorizontally)
+        ) {
             Text(text = stringResource(id = R.string.next))
         }
     }
@@ -49,7 +52,7 @@ internal fun WelcomeScreen() {
 fun WelcomeScreenPrev() {
     CalorieTrackerTheme {
         AppBackground {
-            WelcomeScreen()
+            WelcomeScreen({})
         }
     }
 }
