@@ -7,5 +7,5 @@ plugins {
 }
 
 android {
-    namespace = Config.FEATURE_TRACKER_NAME_SPACE
+    namespace = Config.trackerNameSpace
 }

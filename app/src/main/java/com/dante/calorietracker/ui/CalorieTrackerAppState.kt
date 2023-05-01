@@ -9,6 +9,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.dante.calorietracker.navigation.TopLevelDestination
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -30,4 +31,6 @@ class CalorieTrackerAppState(
 ) {
     val currentDestination: NavDestination?
         @Composable get() = navController.currentBackStackEntryAsState().value?.destination
+
+    val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.values().asList()
 }

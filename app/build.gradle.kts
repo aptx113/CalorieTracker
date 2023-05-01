@@ -52,6 +52,18 @@ android {
 }
 
 dependencies {
+    implementation(project(":feature:activity"))
+    implementation(project(":feature:welcome"))
+    implementation(project(":feature:age"))
+    implementation(project(":feature:gender"))
+    implementation(project(":feature:goal"))
+    implementation(project(":feature:height"))
+    implementation(project(":feature:nutrientGoal"))
+    implementation(project(":feature:search"))
+    implementation(project(":feature:tracker"))
+    implementation(project(":feature:weight"))
+    implementation(project(":feature:welcome"))
+
     implementation(project(":core:common"))
     implementation(project(":core:data"))
     implementation(project(":core:domain"))
