@@ -12,6 +12,7 @@ object Config {
 
     const val CORE_COMMON_NAME_SPACE = "com.dante.calorietracker.core.common"
     const val CORE_DATA_NAME_SPACE = "com.dante.calorietracker.core.data"
+    const val coreDataStoreNameSpace = "com.dante.calorietracker.core.datastore"
     const val CORE_DOMAIN_NAME_SPACE = "com.dante.calorietracker.core.domain"
     const val CORE_TESTING_NAME_SPACE = "com.dante.calorietracker.core.testing"
     const val CORE_UI_NAME_SPACE = "com.dante.calorietracker.core.ui"

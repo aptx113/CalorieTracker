@@ -58,7 +58,7 @@ dependencies {
     implementation(project(":feature:gender"))
     implementation(project(":feature:goal"))
     implementation(project(":feature:height"))
-    implementation(project(":feature:nutrientGoal"))
+    implementation(project(":feature:nutrientgoal"))
     implementation(project(":feature:search"))
     implementation(project(":feature:tracker"))
     implementation(project(":feature:weight"))
@@ -67,7 +67,6 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:data"))
     implementation(project(":core:domain"))
-    implementation(project(":core:model"))
     implementation(project(":core:ui"))
 
     androidTestImplementation(project(":core:testing"))
