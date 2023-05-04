@@ -97,7 +97,7 @@ class CalorieTrackerPreferencesDataSource @Inject constructor(private val dataSt
         }
 
     override suspend fun saveGoalType(goalType: GoalType) {
-        dataStore.editPreferences(PreferencesKey.GoalTypeKey, goalType.name)
+        dataStore.editPreferences(PreferencesKey.GoalTypeKey, goalType.goal)
     }
 
     override val goalType: Flow<GoalType>

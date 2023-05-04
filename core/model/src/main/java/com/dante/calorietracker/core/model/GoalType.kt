@@ -8,9 +8,9 @@ enum class GoalType(val goal: String) {
     companion object {
         fun getGoalTypeFromString(goal: String): GoalType {
             return when (goal) {
-               LoseWeight.goal -> LoseWeight
-                KeepWeight.goal -> KeepWeight
-                else -> GainWeight
+                LoseWeight.goal -> LoseWeight
+                GainWeight.goal -> GainWeight
+                else -> KeepWeight
             }
         }
     }

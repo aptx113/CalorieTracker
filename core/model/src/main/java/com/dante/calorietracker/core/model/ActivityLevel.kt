@@ -8,9 +8,9 @@ enum class ActivityLevel(val level: String) {
     companion object {
         fun getActivityLevelFromString(level: String): ActivityLevel {
             return when (level) {
-                Low.level -> Low
+                High.level -> High
                 Medium.level -> Medium
-                else -> High
+                else -> Low
             }
         }
     }
