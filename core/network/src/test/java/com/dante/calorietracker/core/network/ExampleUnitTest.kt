@@ -1,4 +1,4 @@
-package com.dante.calorietracker.core.model
+package com.dante.calorietracker.core.network
 
 import org.junit.Test
 

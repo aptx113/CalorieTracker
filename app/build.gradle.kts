@@ -67,9 +67,11 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:data"))
     implementation(project(":core:domain"))
+    implementation(project(":core:model"))
     implementation(project(":core:ui"))
 
     androidTestImplementation(project(":core:testing"))
+    androidTestImplementation(project(":core:network"))
     androidTestImplementation(libs.androidx.navigation.testing)
     androidTestImplementation(libs.accompanist.testharness)
     androidTestImplementation(kotlin(TEST))
