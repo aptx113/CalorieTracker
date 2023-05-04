@@ -13,6 +13,8 @@ android {
 
 dependencies {
     implementation(project(ModulePath.CORE_COMMON))
+    api(project(":core:datastore"))
+    api(libs.androidx.dataStore.preferences)
 
     implementation(libs.kotlinx.datetime)
 
