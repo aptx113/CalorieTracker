@@ -1,13 +1,13 @@
 package com.dante.calorietracker.core.model
 
 enum class Gender(val gender: String) {
-    Male("male"),
-    Female("female"),
-    Other("other");
+    Male("Male"),
+    Female("Female"),
+    Other("Other");
 
     companion object {
-        fun getGenderFromString(gender: String): Gender {
-            return when (gender) {
+        fun String.getGenderFromString(): Gender {
+            return when (this) {
                 Male.gender -> Male
                 Female.gender -> Female
                 else -> Other

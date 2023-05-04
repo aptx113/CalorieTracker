@@ -1,9 +1,9 @@
 package com.dante.calorietracker.core.model
 
 enum class ActivityLevel(val level: String) {
-    Low("low"),
-    Medium("medium"),
-    High("high");
+    Low("Low"),
+    Medium("Medium"),
+    High("High");
 
     companion object {
         fun getActivityLevelFromString(level: String): ActivityLevel {

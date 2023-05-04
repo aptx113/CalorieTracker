@@ -5,7 +5,7 @@ import com.dante.calorietracker.core.model.Gender
 import com.dante.calorietracker.core.model.GoalType
 import kotlinx.coroutines.flow.Flow
 
-interface DataStorePreferences {
+interface CalorieTrackerPreferences {
     suspend fun saveGender(gender: Gender)
     val gender: Flow<Gender>
     suspend fun saveAge(age: Int)
