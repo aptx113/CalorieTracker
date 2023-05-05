@@ -87,7 +87,7 @@ class CalorieTrackerPreferencesDataSource(private val dataStore: DataStore<Prefe
         get() = dataStore.getPreferencesFlow(PreferencesKey.HeightKey, 10f)
 
     override suspend fun saveActivityLevel(activityLevel: ActivityLevel) {
-        dataStore.editPreferences(PreferencesKey.ActivityLevelKey, activityLevel.name)
+        dataStore.editPreferences(PreferencesKey.ActivityLevelKey, activityLevel.level)
     }
 
     override val activityLevel: Flow<ActivityLevel>
