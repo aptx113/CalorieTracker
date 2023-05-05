@@ -6,6 +6,8 @@ import androidx.datastore.dataStoreFile
 import androidx.datastore.preferences.SharedPreferencesMigration
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
+import com.dante.calorietracker.core.datastore.CalorieTrackerPreferences
+import com.dante.calorietracker.core.datastore.CalorieTrackerPreferencesDataSource
 import com.dante.calorietracker.core.network.CalorieTrackerDispatcher.IO
 import com.dante.calorietracker.core.network.Dispatcher
 import dagger.Module
@@ -36,4 +38,9 @@ object DataStoreModule {
             context.dataStoreFile("user_preferences.pb")
         }
     }
+
+    @Singleton
+    @Provides
+    fun providesPreferences(dataStore: DataStore<Preferences>): CalorieTrackerPreferences =
+        CalorieTrackerPreferencesDataSource(dataStore)
 }

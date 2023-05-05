@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
-import javax.inject.Inject
 
 private const val genderKey = "genderKey"
 private const val ageKey = "ageKey"
@@ -29,7 +28,7 @@ private const val carbRatioKey = "carbRatioKey"
 private const val proteinRatioKey = "proteinRatioKey"
 private const val fatRatioKey = "fatRatioKey"
 
-class CalorieTrackerPreferencesDataSource @Inject constructor(private val dataStore: DataStore<Preferences>) :
+class CalorieTrackerPreferencesDataSource(private val dataStore: DataStore<Preferences>) :
     CalorieTrackerPreferences {
 
     private object PreferencesKey {
@@ -44,7 +43,7 @@ class CalorieTrackerPreferencesDataSource @Inject constructor(private val dataSt
         val FatRatioKey = floatPreferencesKey(fatRatioKey)
     }
 
-    val userInfo = dataStore.data.map {
+   override val userInfo = dataStore.data.map {
         UserInfo(
             gender = (it[PreferencesKey.GenderKey] ?: "").getGenderFromString(),
             age = it[PreferencesKey.AgeKey] ?: 0,
