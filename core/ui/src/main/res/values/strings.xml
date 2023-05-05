@@ -6,6 +6,7 @@
     <string name="whats_your_gender">What is your gender?</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="other">Other</string>
     <string name="whats_your_age">What\'s your age?</string>
     <string name="next">Next</string>
     <string name="whats_your_height">What\'s your height?</string>

@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.dante.calorietracker.core.ui.R
-import com.dante.calorietracker.core.ui.component.AppBackground
+import com.dante.calorietracker.core.ui.component.Background
 import com.dante.calorietracker.core.ui.component.AppButton
 import com.dante.calorietracker.core.ui.component.ThemePreviews
 import com.dante.calorietracker.core.ui.theme.CalorieTrackerTheme
@@ -54,7 +54,7 @@ internal fun WelcomeScreen(onAgeNavigated: () -> Unit, modifier: Modifier = Modi
 @Composable
 fun WelcomeScreenPrev() {
     CalorieTrackerTheme {
-        AppBackground {
+        Background {
             WelcomeScreen({})
         }
     }

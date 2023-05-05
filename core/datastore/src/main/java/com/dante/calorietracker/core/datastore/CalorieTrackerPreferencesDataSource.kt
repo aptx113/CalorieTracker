@@ -58,7 +58,7 @@ class CalorieTrackerPreferencesDataSource(private val dataStore: DataStore<Prefe
     }
 
     override suspend fun saveGender(gender: Gender) {
-        dataStore.editPreferences(PreferencesKey.GenderKey, gender.name)
+        dataStore.editPreferences(PreferencesKey.GenderKey, gender.gender)
     }
 
     override val gender: Flow<Gender>

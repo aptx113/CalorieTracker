@@ -21,9 +21,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import com.dante.calorietracker.core.ui.component.AppBackground
+import com.dante.calorietracker.core.ui.component.Background
 import com.dante.calorietracker.navigation.CalorieTrackerNavHost
 import com.dante.calorietracker.navigation.TopLevelDestination
 
@@ -38,14 +39,14 @@ fun CalorieTrackerApp(
         windowSizeClass = windowSizeClass
     )
 ) {
-    AppBackground {
+    Background {
         Scaffold(
             modifier = Modifier.semantics {
                 testTagsAsResourceId = true
             },
             containerColor = Color.Transparent,
             contentColor = MaterialTheme.colorScheme.onBackground,
-            contentWindowInsets = WindowInsets(0, 0, 0, 0)
+            contentWindowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 16.dp)
         ) { padding ->
             Row(
                 Modifier

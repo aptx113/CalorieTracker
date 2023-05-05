@@ -17,13 +17,13 @@ fun CalorieTrackerSuggestionChip(
     isSelected: Boolean,
     color: Color,
     selectedTextColor: Color,
-    onSelectedChange: (Boolean) -> Unit,
+    onSelectedChange: () -> Unit,
     modifier: Modifier = Modifier,
     label: @Composable () -> Unit
 ) {
     val spacing = LocalSpacing.current
     SuggestionChip(
-        onClick = { onSelectedChange(!isSelected) },
+        onClick = onSelectedChange,
         label = {
             ProvideTextStyle(
                 value = TextStyle(
@@ -41,6 +41,6 @@ fun CalorieTrackerSuggestionChip(
             borderWidth = spacing.space2
         ),
         colors = SuggestionChipDefaults.suggestionChipColors(if (isSelected) color else Color.Transparent),
-        modifier = modifier.padding(spacing.space16)
+        modifier = modifier.padding(spacing.space8)
     )
 }
