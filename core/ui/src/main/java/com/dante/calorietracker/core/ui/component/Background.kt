@@ -22,7 +22,7 @@ import com.dante.calorietracker.core.ui.theme.LocalBackgroundTheme
 annotation class ThemePreviews
 
 @Composable
-fun AppBackground(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+fun Background(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
     val color = LocalBackgroundTheme.current.color
     val tonalElevation = LocalBackgroundTheme.current.tonalElevation
     Surface(
@@ -40,7 +40,7 @@ fun AppBackground(modifier: Modifier = Modifier, content: @Composable () -> Unit
 @Composable
 fun BackgroundDefault() {
     CalorieTrackerTheme(disableDynamicTheming = true) {
-        AppBackground(Modifier.size(dimensionResource(id = R.dimen.space_100)), content = {})
+        Background(Modifier.size(dimensionResource(id = R.dimen.space_100)), content = {})
     }
 }
 
@@ -48,6 +48,6 @@ fun BackgroundDefault() {
 @Composable
 fun BackgroundDynamic() {
     CalorieTrackerTheme(disableDynamicTheming = false) {
-        AppBackground(Modifier.size(dimensionResource(id = R.dimen.space_100)), content = {})
+        Background(Modifier.size(dimensionResource(id = R.dimen.space_100)), content = {})
     }
 }
