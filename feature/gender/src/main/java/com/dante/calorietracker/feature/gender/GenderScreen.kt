@@ -13,11 +13,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import com.dante.calorietracker.core.ui.R
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dante.calorietracker.core.model.Gender
+import com.dante.calorietracker.core.ui.R
 import com.dante.calorietracker.core.ui.component.AppButton
 import com.dante.calorietracker.core.ui.component.Background
 import com.dante.calorietracker.core.ui.component.CalorieTrackerSuggestionChip
@@ -68,25 +67,22 @@ internal fun GenderScreen(
             Row {
                 CalorieTrackerSuggestionChip(
                     isSelected = selectedGender is Gender.Male,
-                    color = MaterialTheme.colorScheme.secondary,
-                    selectedTextColor = Color.White,
-                    onSelectedChange = { onSelectedChange(Gender.Male) }
+                    onSelectedChange = { onSelectedChange(Gender.Male) },
+                    modifier = modifier.padding(spacing.space8)
                 ) {
                     Text(text = stringResource(id = R.string.male))
                 }
                 CalorieTrackerSuggestionChip(
                     isSelected = selectedGender is Gender.Female,
-                    color = MaterialTheme.colorScheme.secondary,
-                    selectedTextColor = Color.White,
-                    onSelectedChange = { onSelectedChange(Gender.Female) }
+                    onSelectedChange = { onSelectedChange(Gender.Female) },
+                    modifier = modifier.padding(spacing.space8)
                 ) {
                     Text(text = stringResource(id = R.string.female))
                 }
                 CalorieTrackerSuggestionChip(
                     isSelected = selectedGender is Gender.Other,
-                    color = MaterialTheme.colorScheme.secondary,
-                    selectedTextColor = Color.White,
-                    onSelectedChange = { onSelectedChange(Gender.Other) }
+                    onSelectedChange = { onSelectedChange(Gender.Other) },
+                    modifier = modifier.padding(spacing.space8)
                 ) {
                     Text(text = stringResource(id = R.string.other))
                 }

@@ -5,7 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import com.dante.calorietracker.core.model.Gender
+import androidx.compose.ui.test.performClick
+import com.dante.calorietracker.core.testing.data.repository.TestUserDataRepository
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
@@ -31,17 +33,39 @@ class GenderScreenTest {
         )
     }
 
-    @Test
-    fun otherChipByDefault_isSelected() {
+    private val viewModel = GenderViewModel(TestUserDataRepository())
+
+    @Before
+    fun setup() {
         composeTestRule.setContent {
             GenderScreen(
-                selectedGender = Gender.Other,
-                onSelectedChange = {},
+                selectedGender = viewModel.selectedGender,
+                onSelectedChange = { viewModel.onGenderClick(it) },
                 onNextClick = {},
             )
         }
+    }
+
+    @Test
+    fun otherChipByDefault_isSelected() {
         composeTestRule
             .onNode(otherChipMatcher)
+            .assertIsSelected()
+    }
+
+    @Test
+    fun chip_whenClickMale_maleIsSelected() {
+        composeTestRule
+            .onNode(maleChipMatcher)
+            .performClick()
+            .assertIsSelected()
+    }
+
+    @Test
+    fun chip_whenClickFemale_femaleIsSelected() {
+        composeTestRule
+            .onNode(feMaleChipMatcher)
+            .performClick()
             .assertIsSelected()
     }
 }
