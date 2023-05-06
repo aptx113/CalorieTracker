@@ -13,7 +13,10 @@ android {
 
 dependencies {
     implementation(project(ModulePath.CORE_COMMON))
-    api(project(":core:datastore"))
+    implementation(project(ModulePath.CORE_DATA))
+    implementation(project(ModulePath.CORE_DOMAIN))
+    implementation(project(ModulePath.CORE_MODEL))
+    implementation(project(":core:datastore"))
     api(libs.androidx.dataStore.preferences)
 
     implementation(libs.kotlinx.datetime)

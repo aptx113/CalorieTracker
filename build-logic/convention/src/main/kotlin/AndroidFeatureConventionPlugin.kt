@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.LibraryExtension
 import com.dante.calorietracker.LibsVal.COIL_KT
 import com.dante.calorietracker.LibsVal.COIL_KT_COMPOSE
 import com.dante.calorietracker.LibsVal.COROUTINES
@@ -20,6 +21,7 @@ import com.dante.calorietracker.ext.implementTest
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.kotlin
@@ -30,6 +32,12 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             pluginManager.apply {
                 apply(ANDROID_LIBRARY_REGISTER_ID)
                 apply(ANDROID_HILT_REGISTER_ID)
+            }
+            extensions.configure<LibraryExtension> {
+                defaultConfig {
+                    testInstrumentationRunner =
+                        "com.dante.calorietracker.core.testing.CalorieTrackerTestRunner"
+                }
             }
 
             val libs = extensions.getByType<VersionCatalogsExtension>().named(LIBS)

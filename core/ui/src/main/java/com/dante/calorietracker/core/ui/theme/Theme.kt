@@ -84,7 +84,7 @@ fun CalorieTrackerTheme(
         if (isDarkTheme) DarkDefaultColorScheme else LightDefaultColorScheme
     }
     val defaultBackgroundTheme =
-        BackgroundTheme(color = colorScheme.background, tonalElevation = 2.dp)
+        BackgroundTheme(color = colorScheme.surface, tonalElevation = 2.dp)
 
     val tintTheme =
         if (!disableDynamicTheming && supportsDynamicTheming()) TintTheme(colorScheme.primary) else TintTheme()

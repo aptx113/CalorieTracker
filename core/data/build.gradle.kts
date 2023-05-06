@@ -21,6 +21,7 @@ android {
 
 dependencies {
     implementation(project(CORE_COMMON))
+    implementation(project(":core:datastore"))
     implementation(project(CORE_MODEL))
 
     testImplementation(project(CORE_TESTING))
