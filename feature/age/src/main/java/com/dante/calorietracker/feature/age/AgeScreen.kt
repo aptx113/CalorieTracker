@@ -21,8 +21,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dante.calorietracker.core.ui.R
 import com.dante.calorietracker.core.ui.component.AppButton
+import com.dante.calorietracker.core.ui.component.Background
+import com.dante.calorietracker.core.ui.component.ThemePreviews
 import com.dante.calorietracker.core.ui.component.UnitTextField
 import com.dante.calorietracker.core.ui.delegate.LocalSnackBarDelegate
+import com.dante.calorietracker.core.ui.theme.CalorieTrackerTheme
 import com.dante.calorietracker.core.ui.unit.LocalSpacing
 
 @Composable
@@ -47,8 +50,8 @@ internal fun AgeRoute(
 @Composable
 internal fun AgeScreen(
     modifier: Modifier = Modifier,
-    onAgeEntered: (String) -> Unit,
-    onNextClick: () -> Unit,
+    onAgeEntered: (String) -> Unit = {},
+    onNextClick: () -> Unit = {},
     age: String = "",
     shouldDisplayAgeNotFilled: Boolean = false,
     clearAgeNotFilledState: () -> Unit = {}
@@ -93,11 +96,21 @@ internal fun AgeScreen(
             UnitTextField(
                 value = age,
                 onValueChange = onAgeEntered,
-                unit = stringResource(id = R.string.years)
+                unit = stringResource(id = R.string.years),
             )
         }
         AppButton(onClick = onNextClick, modifier = Modifier.align(Alignment.BottomEnd)) {
             Text(text = stringResource(id = R.string.next))
+        }
+    }
+}
+
+@ThemePreviews
+@Composable
+fun AgeScreenPrev() {
+    Background {
+        CalorieTrackerTheme {
+            AgeScreen()
         }
     }
 }

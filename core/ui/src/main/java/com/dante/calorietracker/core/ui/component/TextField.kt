@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.LastBaseline
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
@@ -26,16 +27,17 @@ fun UnitTextField(
     textStyle: TextStyle = TextStyle(color = MaterialTheme.colorScheme.secondary, fontSize = 36.sp)
 ) {
     val spacing = LocalSpacing.current
-    Row(modifier = modifier, horizontalArrangement = Arrangement.Center) {
+    Row(horizontalArrangement = Arrangement.Center) {
         BasicTextField(
             value = value,
             onValueChange = onValueChange,
             textStyle = textStyle,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             singleLine = true,
-            modifier = Modifier
+            modifier = modifier
                 .width(IntrinsicSize.Min)
                 .alignBy(LastBaseline)
+                .testTag("ageTextField")
         )
         Spacer(modifier = Modifier.width(spacing.space8))
         Text(text = unit, modifier = Modifier.alignBy(LastBaseline))

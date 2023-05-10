@@ -29,6 +29,14 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
             targetCompatibility = JavaVersion.VERSION_17
             isCoreLibraryDesugaringEnabled = true
         }
+        packaging {
+            // Exclude some licenses from the APK
+            resources {
+                excludes.add("/META-INF/{AL2.0,LGPL2.1}")
+                excludes.add("META-INF/LICENSE.md")
+                excludes.add("META-INF/LICENSE-notice.md")
+            }
+        }
     }
 
     tasks.withType<KotlinCompile>().configureEach {
