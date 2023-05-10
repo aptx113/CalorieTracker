@@ -21,6 +21,7 @@ class AgeViewModel @Inject constructor(
     ViewModel() {
 
     var shouldDisplayAgeNotFilled by mutableStateOf(false)
+        private set
 
     val age = savedStateHandle.getStateFlow(AGE, "")
 
