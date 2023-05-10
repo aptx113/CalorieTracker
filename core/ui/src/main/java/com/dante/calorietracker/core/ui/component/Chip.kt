@@ -1,6 +1,5 @@
 package com.dante.calorietracker.core.ui.component
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
@@ -25,7 +24,7 @@ fun CalorieTrackerSuggestionChip(
     FilterChip(
         selected = isSelected, onClick = onSelectedChange,
         label = {
-            ProvideTextStyle(value = MaterialTheme.typography.labelLarge) {
+            ProvideTextStyle(value = MaterialTheme.typography.bodyLarge) {
                 label()
             }
         },

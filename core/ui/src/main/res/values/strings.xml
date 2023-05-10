@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_unknown">Unknown error</string>
+    <string name="confirm">CONFIRM</string>
     <string name="welcome_text">Hello! Let\'s find out more about you :)</string>
     <string name="lets_go">Let\'s go</string>
     <string name="whats_your_gender">What is your gender?</string>

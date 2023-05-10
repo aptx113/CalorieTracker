@@ -11,10 +11,11 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = uri("https://jitpack.io") }
     }
 }
 rootProject.name = "CalorieTracker"
-include( ":app")
+include(":app")
 include(":core:common")
 include(":core:data")
 include(":core:domain")
