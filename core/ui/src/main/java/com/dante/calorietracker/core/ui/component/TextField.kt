@@ -23,7 +23,7 @@ fun UnitTextField(
     onValueChange: (String) -> Unit,
     unit: String,
     modifier: Modifier = Modifier,
-    textStyle: TextStyle = TextStyle(color = MaterialTheme.colorScheme.secondary, fontSize = 70.sp)
+    textStyle: TextStyle = TextStyle(color = MaterialTheme.colorScheme.secondary, fontSize = 36.sp)
 ) {
     val spacing = LocalSpacing.current
     Row(modifier = modifier, horizontalArrangement = Arrangement.Center) {

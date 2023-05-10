@@ -11,8 +11,8 @@ const val welcomeRoute = "welcome_route"
 fun NavController.navigateToWelcome(navOptions: NavOptions? = null) =
     this.navigate(welcomeRoute, navOptions)
 
-fun NavGraphBuilder.welcomeScreen(onAgeNavigated: () -> Unit) {
+fun NavGraphBuilder.welcomeScreen(onGenderNavigated: () -> Unit) {
     composable(route = welcomeRoute) {
-        WelcomeRoute(onAgeNavigated)
+        WelcomeRoute(onGenderNavigated)
     }
 }

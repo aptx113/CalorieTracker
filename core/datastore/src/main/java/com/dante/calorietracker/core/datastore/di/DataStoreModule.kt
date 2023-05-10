@@ -35,7 +35,7 @@ object DataStoreModule {
             ),
             scope = CoroutineScope(ioDispatcher + SupervisorJob())
         ) {
-            context.dataStoreFile("user_preferences.pb")
+            context.dataStoreFile("user.preferences_pb")
         }
     }
 

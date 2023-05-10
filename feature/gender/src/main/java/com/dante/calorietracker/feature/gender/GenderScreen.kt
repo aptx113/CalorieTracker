@@ -52,7 +52,7 @@ internal fun GenderScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .padding(spacing.space32)
+            .padding(horizontal = spacing.space32)
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -61,7 +61,7 @@ internal fun GenderScreen(
         ) {
             Text(
                 text = stringResource(id = R.string.whats_your_gender),
-                style = MaterialTheme.typography.displaySmall
+                style = MaterialTheme.typography.titleLarge
             )
             Spacer(modifier = Modifier.height(spacing.space16))
             Row {
