@@ -38,7 +38,7 @@ internal fun WelcomeScreen(onAgeNavigated: () -> Unit, modifier: Modifier = Modi
         Text(
             text = stringResource(id = R.string.welcome_text),
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.displayLarge
+            style = MaterialTheme.typography.titleLarge
         )
         Spacer(modifier = Modifier.height(spacing.space16))
         AppButton(

@@ -10,6 +10,7 @@ import com.dante.calorietracker.feature.gender.navigation.genderScreen
 import com.dante.calorietracker.feature.gender.navigation.navigateToGender
 import com.dante.calorietracker.feature.goal.navigation.goalScreen
 import com.dante.calorietracker.feature.height.navigation.heightScreen
+import com.dante.calorietracker.feature.height.navigation.navigateToHeight
 import com.dante.calorietracker.feature.nutrientGoal.navigation.nutrientGoalScreen
 import com.dante.calorietracker.feature.search.navigation.searchScreen
 import com.dante.calorietracker.feature.tracker.navigation.trackerScreen
@@ -30,9 +31,9 @@ fun CalorieTrackerNavHost(
         startDestination = startDestination,
         modifier = modifier
     ) {
-        welcomeScreen(onAgeNavigated = { navController.navigateToGender() })
+        welcomeScreen { navController.navigateToGender() }
         activityScreen()
-        ageScreen()
+        ageScreen(onNextClick = { navController.navigateToHeight() })
         genderScreen(onNextClick = { navController.navigateToAge() })
         goalScreen()
         heightScreen()

@@ -28,6 +28,7 @@ dependencies {
     api(libs.androidx.compose.runtime)
     debugApi(libs.androidx.compose.ui.tooling)
     api(libs.androidx.compose.ui.tooling.preview)
+    api(libs.androidx.compose.ui)
     api(libs.androidx.compose.ui.util)
     androidTestImplementation(project(CORE_TESTING))
 }
