@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarResult
@@ -16,11 +18,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dante.calorietracker.core.ui.R
-import com.dante.calorietracker.core.ui.component.AppButton
+import com.dante.calorietracker.core.ui.component.CalorieTrackerButton
 import com.dante.calorietracker.core.ui.component.Background
 import com.dante.calorietracker.core.ui.component.ThemePreviews
 import com.dante.calorietracker.core.ui.component.UnitTextField
@@ -57,6 +62,7 @@ internal fun AgeScreen(
     clearAgeNotFilledState: () -> Unit = {}
 ) {
     val spacing = LocalSpacing.current
+    val focusManager = LocalFocusManager.current
     val ageIsEmptyMessage = stringResource(id = R.string.error_age_cant_be_empty)
     val confirmTest = stringResource(id = R.string.confirm)
     val snackBarDelegate = LocalSnackBarDelegate.current
@@ -97,9 +103,19 @@ internal fun AgeScreen(
                 value = age,
                 onValueChange = onAgeEntered,
                 unit = stringResource(id = R.string.years),
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(onDone = {
+                    focusManager.clearFocus()
+                })
             )
         }
-        AppButton(onClick = onNextClick, modifier = Modifier.align(Alignment.BottomEnd)) {
+        CalorieTrackerButton(
+            onClick = onNextClick,
+            modifier = Modifier.align(Alignment.BottomEnd)
+        ) {
             Text(text = stringResource(id = R.string.next))
         }
     }
