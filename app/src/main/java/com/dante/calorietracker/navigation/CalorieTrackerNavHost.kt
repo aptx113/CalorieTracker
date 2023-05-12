@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.dante.calorietracker.feature.activity.navigation.activityScreen
+import com.dante.calorietracker.feature.activity.navigation.navigateToActivity
 import com.dante.calorietracker.feature.age.navigation.ageScreen
 import com.dante.calorietracker.feature.age.navigation.navigateToAge
 import com.dante.calorietracker.feature.gender.navigation.genderScreen
@@ -41,6 +42,6 @@ fun CalorieTrackerNavHost(
         nutrientGoalScreen()
         searchScreen()
         trackerScreen()
-        weightScreen()
+        weightScreen(onNavigated = { navController.navigateToActivity() })
     }
 }
