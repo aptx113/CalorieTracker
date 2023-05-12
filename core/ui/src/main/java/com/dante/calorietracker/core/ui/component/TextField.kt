@@ -40,7 +40,6 @@ fun UnitTextField(
             modifier = modifier
                 .width(IntrinsicSize.Min)
                 .alignBy(LastBaseline)
-                .testTag("ageTextField")
         )
         Spacer(modifier = Modifier.width(spacing.space8))
         Text(text = unit, modifier = Modifier.alignBy(LastBaseline))
