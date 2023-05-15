@@ -17,8 +17,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dante.calorietracker.core.model.Gender
 import com.dante.calorietracker.core.ui.R
-import com.dante.calorietracker.core.ui.component.CalorieTrackerButton
 import com.dante.calorietracker.core.ui.component.Background
+import com.dante.calorietracker.core.ui.component.CalorieTrackerButton
 import com.dante.calorietracker.core.ui.component.CalorieTrackerSuggestionChip
 import com.dante.calorietracker.core.ui.component.ThemePreviews
 import com.dante.calorietracker.core.ui.theme.CalorieTrackerTheme
@@ -49,6 +49,7 @@ internal fun GenderScreen(
     modifier: Modifier = Modifier
 ) {
     val spacing = LocalSpacing.current
+    val genders = listOf(Gender.Male, Gender.Female, Gender.Other)
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -65,30 +66,42 @@ internal fun GenderScreen(
             )
             Spacer(modifier = Modifier.height(spacing.space16))
             Row {
-                CalorieTrackerSuggestionChip(
-                    isSelected = selectedGender is Gender.Male,
-                    onSelectedChange = { onSelectedChange(Gender.Male) },
-                    modifier = modifier.padding(spacing.space8)
-                ) {
-                    Text(text = stringResource(id = R.string.male))
+                genders.forEach {
+                    CalorieTrackerSuggestionChip(
+                        isSelected = selectedGender == it,
+                        onSelectedChange = { onSelectedChange(it) },
+                        modifier = modifier.padding(spacing.space8)
+                    ) {
+                        Text(text = it.gender)
+                    }
                 }
-                CalorieTrackerSuggestionChip(
-                    isSelected = selectedGender is Gender.Female,
-                    onSelectedChange = { onSelectedChange(Gender.Female) },
-                    modifier = modifier.padding(spacing.space8)
-                ) {
-                    Text(text = stringResource(id = R.string.female))
-                }
-                CalorieTrackerSuggestionChip(
-                    isSelected = selectedGender is Gender.Other,
-                    onSelectedChange = { onSelectedChange(Gender.Other) },
-                    modifier = modifier.padding(spacing.space8)
-                ) {
-                    Text(text = stringResource(id = R.string.other))
-                }
+//                CalorieTrackerSuggestionChip(
+//                    isSelected = selectedGender is Gender.Male,
+//                    onSelectedChange = { onSelectedChange(Gender.Male) },
+//                    modifier = modifier.padding(spacing.space8)
+//                ) {
+//                    Text(text = stringResource(id = R.string.male))
+//                }
+//                CalorieTrackerSuggestionChip(
+//                    isSelected = selectedGender is Gender.Female,
+//                    onSelectedChange = { onSelectedChange(Gender.Female) },
+//                    modifier = modifier.padding(spacing.space8)
+//                ) {
+//                    Text(text = stringResource(id = R.string.female))
+//                }
+//                CalorieTrackerSuggestionChip(
+//                    isSelected = selectedGender is Gender.Other,
+//                    onSelectedChange = { onSelectedChange(Gender.Other) },
+//                    modifier = modifier.padding(spacing.space8)
+//                ) {
+//                    Text(text = stringResource(id = R.string.other))
+//                }
             }
         }
-        CalorieTrackerButton(onClick = onNextClick, modifier = Modifier.align(Alignment.BottomEnd)) {
+        CalorieTrackerButton(
+            onClick = onNextClick,
+            modifier = Modifier.align(Alignment.BottomEnd)
+        ) {
             Text(text = stringResource(id = R.string.next))
         }
     }

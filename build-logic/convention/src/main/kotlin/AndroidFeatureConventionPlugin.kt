@@ -53,6 +53,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 implementTest(project(CORE_TESTING))
                 implementAndroidTest(kotlin(TEST))
                 implementAndroidTest(project(CORE_TESTING))
+                implementAndroidTest(project(CORE_UI))
 
                 implement(libs.findLibrary(COIL_KT).get())
                 implement(libs.findLibrary(COIL_KT_COMPOSE).get())

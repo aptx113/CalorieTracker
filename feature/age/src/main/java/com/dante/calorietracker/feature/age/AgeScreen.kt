@@ -127,8 +127,8 @@ internal fun AgeScreen(
 @ThemePreviews
 @Composable
 fun AgeScreenPrev() {
-    Background {
-        CalorieTrackerTheme {
+    CalorieTrackerTheme {
+        Background {
             AgeScreen()
         }
     }
