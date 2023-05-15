@@ -1,4 +1,4 @@
-package com.dante.calorietracker.feature.activity
+package com.dante.calorietracker.feature.goal
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,7 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.dante.calorietracker.core.model.ActivityLevel
+import com.dante.calorietracker.core.model.GoalType
 import com.dante.calorietracker.core.ui.R
 import com.dante.calorietracker.core.ui.component.Background
 import com.dante.calorietracker.core.ui.component.CalorieTrackerButton
@@ -25,53 +25,57 @@ import com.dante.calorietracker.core.ui.theme.CalorieTrackerTheme
 import com.dante.calorietracker.core.ui.unit.LocalSpacing
 
 @Composable
-internal fun ActivityRoute(
+internal fun GoalRoute(
     onNavigated: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: ActivityViewModel = hiltViewModel()
+    viewModel: GoalViewModel = hiltViewModel()
 ) {
-    ActivityScreen(
+    GoalScreen(
         modifier = modifier,
-        selectedActivity = viewModel.selectedActivity,
-        onSelectedChange = viewModel::onActivityLevelSelect,
+        selectedGoal = viewModel.selectedGoal,
+        onSelectedChange = viewModel::onGoalSelect,
         onNextClick = {
             viewModel.onNextClick(onNavigated)
         })
 }
 
 @Composable
-internal fun ActivityScreen(
-    modifier: Modifier = Modifier,
-    selectedActivity: ActivityLevel = ActivityLevel.Medium,
-    onSelectedChange: (ActivityLevel) -> Unit = {},
+internal fun GoalScreen(
+    modifier: Modifier = Modifier, selectedGoal: GoalType = GoalType.KeepWeight,
+    onSelectedChange: (GoalType) -> Unit = {},
     onNextClick: () -> Unit = {},
 ) {
     val spacing = LocalSpacing.current
-    val activityLevel = listOf(ActivityLevel.High, ActivityLevel.Medium, ActivityLevel.Low)
+    val goalType = listOf(GoalType.GainWeight, GoalType.KeepWeight, GoalType.LoseWeight)
     Box(
         modifier = modifier
             .fillMaxSize()
             .padding(horizontal = spacing.space32)
     ) {
-
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = stringResource(id = R.string.whats_your_activity_level),
+                text = stringResource(id = R.string.lose_keep_or_gain_weight),
                 style = MaterialTheme.typography.titleLarge
             )
             Spacer(modifier = Modifier.height(spacing.space16))
             Row {
-                activityLevel.forEach {
+                goalType.forEach {
                     CalorieTrackerSuggestionChip(
-                        isSelected = selectedActivity.level == it.level,
+                        isSelected = selectedGoal.goal == it.goal,
                         onSelectedChange = { onSelectedChange(it) },
                         modifier = Modifier.padding(spacing.space8)
                     ) {
-                        Text(text = it.level)
+                        Text(
+                            text = when (it) {
+                                GoalType.GainWeight -> stringResource(id = R.string.gain)
+                                GoalType.KeepWeight -> stringResource(id = R.string.keep)
+                                else -> stringResource(id = R.string.lose)
+                            }
+                        )
                     }
                 }
             }
@@ -87,10 +91,10 @@ internal fun ActivityScreen(
 
 @ThemePreviews
 @Composable
-fun ActivityScreenPrev() {
+fun GoalScreenPrev() {
     CalorieTrackerTheme {
         Background {
-            ActivityScreen()
+            GoalScreen()
         }
     }
 }
