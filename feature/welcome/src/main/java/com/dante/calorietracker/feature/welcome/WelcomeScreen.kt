@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.dante.calorietracker.core.ui.R
 import com.dante.calorietracker.core.ui.component.Background
-import com.dante.calorietracker.core.ui.component.AppButton
+import com.dante.calorietracker.core.ui.component.CalorieTrackerButton
 import com.dante.calorietracker.core.ui.component.ThemePreviews
 import com.dante.calorietracker.core.ui.theme.CalorieTrackerTheme
 import com.dante.calorietracker.core.ui.unit.LocalSpacing
@@ -41,7 +41,7 @@ internal fun WelcomeScreen(onAgeNavigated: () -> Unit, modifier: Modifier = Modi
             style = MaterialTheme.typography.titleLarge
         )
         Spacer(modifier = Modifier.height(spacing.space16))
-        AppButton(
+        CalorieTrackerButton(
             onClick = onAgeNavigated,
             modifier = modifier.align(Alignment.CenterHorizontally)
         ) {

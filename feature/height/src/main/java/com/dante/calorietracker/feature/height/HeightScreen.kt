@@ -1,4 +1,4 @@
-package com.dante.calorietracker.feature.age
+package com.dante.calorietracker.feature.height
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -35,52 +35,50 @@ import com.dante.calorietracker.core.ui.theme.CalorieTrackerTheme
 import com.dante.calorietracker.core.ui.unit.LocalSpacing
 
 @Composable
-internal fun AgeRoute(
+internal fun HeightRoute(
     modifier: Modifier = Modifier,
     onNavigated: () -> Unit,
-    viewModel: AgeViewModel = hiltViewModel()
+    viewModel: HeightViewModel = hiltViewModel()
 ) {
-    val age by viewModel.age.collectAsStateWithLifecycle()
-    AgeScreen(
+    val height by viewModel.height.collectAsStateWithLifecycle()
+    HeightScreen(
         modifier = modifier,
-        onAgeEntered = viewModel::onAgeEntered,
-        onNextClick = {
-            viewModel.onNextClick(onNavigated)
-        },
-        age = age,
-        viewModel.shouldDisplayAgeNotFilled,
-        clearAgeNotFilledState = viewModel::clearAgeNotFilledState
+        onHeightEntered = viewModel::onHeightEnter,
+        onNavigated = { viewModel.onNextClick(onNavigated) },
+        height = height,
+        shouldDisplayHeightNotFilled = viewModel.shouldDisplayHeightNotFilled,
+        clearHeightNotFilledState = viewModel::clearHeightNotFilledState
     )
 }
 
 @Composable
-internal fun AgeScreen(
+internal fun HeightScreen(
     modifier: Modifier = Modifier,
-    onAgeEntered: (String) -> Unit = {},
-    onNextClick: () -> Unit = {},
-    age: String = "",
-    shouldDisplayAgeNotFilled: Boolean = false,
-    clearAgeNotFilledState: () -> Unit = {}
+    onHeightEntered: (String) -> Unit = {},
+    onNavigated: () -> Unit = {},
+    height: String = "",
+    shouldDisplayHeightNotFilled: Boolean = false,
+    clearHeightNotFilledState: () -> Unit = {}
 ) {
     val spacing = LocalSpacing.current
     val focusManager = LocalFocusManager.current
-    val ageIsEmptyMessage = stringResource(id = R.string.error_age_cant_be_empty)
+    val heightIsEmptyMessage = stringResource(id = R.string.error_height_cant_be_empty)
     val confirmTest = stringResource(id = R.string.confirm)
     val snackBarDelegate = LocalSnackBarDelegate.current
 
-    LaunchedEffect(shouldDisplayAgeNotFilled) {
-        if (shouldDisplayAgeNotFilled) {
+    LaunchedEffect(shouldDisplayHeightNotFilled) {
+        if (shouldDisplayHeightNotFilled) {
             val snackBarResult = snackBarDelegate.showSnackBarAsync(
-                message = ageIsEmptyMessage,
+                message = heightIsEmptyMessage,
                 actionLabel = confirmTest,
                 duration = SnackbarDuration.Short
             )?.await()
             when (snackBarResult) {
                 SnackbarResult.ActionPerformed -> {
-                    clearAgeNotFilledState()
+                    clearHeightNotFilledState()
                 }
 
-                else -> clearAgeNotFilledState()
+                else -> clearHeightNotFilledState()
             }
         }
     }
@@ -96,14 +94,14 @@ internal fun AgeScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = stringResource(id = R.string.whats_your_age),
+                text = stringResource(id = R.string.whats_your_height),
                 style = MaterialTheme.typography.titleLarge
             )
             Spacer(modifier = Modifier.height(spacing.space16))
             UnitTextField(
-                value = age,
-                onValueChange = onAgeEntered,
-                unit = stringResource(id = R.string.years),
+                value = height,
+                onValueChange = onHeightEntered,
+                unit = stringResource(id = R.string.cm),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Done
@@ -111,12 +109,11 @@ internal fun AgeScreen(
                 keyboardActions = KeyboardActions(onDone = {
                     focusManager.clearFocus()
                 }),
-                modifier = Modifier
-                    .testTag("ageTextField")
+                modifier = Modifier.testTag(HEIGHT_TEXT_FIELD)
             )
         }
         CalorieTrackerButton(
-            onClick = onNextClick,
+            onClick = onNavigated,
             modifier = Modifier.align(Alignment.BottomEnd)
         ) {
             Text(text = stringResource(id = R.string.next))
@@ -126,10 +123,12 @@ internal fun AgeScreen(
 
 @ThemePreviews
 @Composable
-fun AgeScreenPrev() {
+fun HeightScreenPrev() {
     Background {
         CalorieTrackerTheme {
-            AgeScreen()
+            HeightScreen()
         }
     }
 }
+
+const val HEIGHT_TEXT_FIELD = "heightTextField"

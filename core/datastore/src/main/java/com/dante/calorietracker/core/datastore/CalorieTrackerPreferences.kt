@@ -15,8 +15,8 @@ interface CalorieTrackerPreferences {
     val age: Flow<Int>
     suspend fun saveWeight(weight: Float)
     val weight: Flow<Float>
-    suspend fun saveHeight(height: Float)
-    val height: Flow<Float>
+    suspend fun saveHeight(height: Int)
+    val height: Flow<Int>
     suspend fun saveActivityLevel(activityLevel: ActivityLevel)
     val activityLevel: Flow<ActivityLevel>
     suspend fun saveGoalType(goalType: GoalType)

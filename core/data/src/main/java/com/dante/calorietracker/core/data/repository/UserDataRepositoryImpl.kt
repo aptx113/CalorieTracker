@@ -25,7 +25,7 @@ class UserDataRepositoryImpl @Inject constructor(private val dataSource: Calorie
         dataSource.saveWeight(weight)
     }
 
-    override suspend fun saveHeight(height: Float) {
+    override suspend fun saveHeight(height: Int) {
         dataSource.saveHeight(height)
     }
 

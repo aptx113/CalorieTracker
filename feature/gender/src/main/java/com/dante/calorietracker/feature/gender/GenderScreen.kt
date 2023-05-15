@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dante.calorietracker.core.model.Gender
 import com.dante.calorietracker.core.ui.R
-import com.dante.calorietracker.core.ui.component.AppButton
+import com.dante.calorietracker.core.ui.component.CalorieTrackerButton
 import com.dante.calorietracker.core.ui.component.Background
 import com.dante.calorietracker.core.ui.component.CalorieTrackerSuggestionChip
 import com.dante.calorietracker.core.ui.component.ThemePreviews
@@ -88,7 +88,7 @@ internal fun GenderScreen(
                 }
             }
         }
-        AppButton(onClick = onNextClick, modifier = Modifier.align(Alignment.BottomEnd)) {
+        CalorieTrackerButton(onClick = onNextClick, modifier = Modifier.align(Alignment.BottomEnd)) {
             Text(text = stringResource(id = R.string.next))
         }
     }

@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.filterNotNull
 val emptyUserInfo = UserInfo(
     gender = Gender.Other,
     age = 0,
-    height = 0f,
+    height = 0,
     weight = 0f,
     activityLevel = ActivityLevel.High,
     goalType = GoalType.KeepWeight,
@@ -43,7 +43,7 @@ class TestUserDataRepository : UserDataRepository {
         _userInfo.tryEmit(currentUserInfo.copy(weight = weight))
     }
 
-    override suspend fun saveHeight(height: Float) {
+    override suspend fun saveHeight(height: Int) {
         _userInfo.tryEmit(currentUserInfo.copy(height = height))
     }
 
