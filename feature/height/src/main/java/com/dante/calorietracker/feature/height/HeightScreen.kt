@@ -124,11 +124,12 @@ internal fun HeightScreen(
 @ThemePreviews
 @Composable
 fun HeightScreenPrev() {
-    Background {
-        CalorieTrackerTheme {
+    CalorieTrackerTheme {
+        Background {
             HeightScreen()
         }
     }
+
 }
 
 const val HEIGHT_TEXT_FIELD = "heightTextField"
