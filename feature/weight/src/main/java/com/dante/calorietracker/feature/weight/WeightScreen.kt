@@ -104,8 +104,7 @@ internal fun WeightScreen(
                 onValueChange = onWeightEnter,
                 unit = stringResource(id = R.string.kg),
                 keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Decimal,
-                    imeAction = ImeAction.Done
+                    keyboardType = KeyboardType.Decimal, imeAction = ImeAction.Done
                 ),
                 keyboardActions = KeyboardActions(onDone = {
                     focusManager.clearFocus()
@@ -114,8 +113,7 @@ internal fun WeightScreen(
             )
         }
         CalorieTrackerButton(
-            onClick = onNextClick,
-            modifier = Modifier.align(Alignment.BottomEnd)
+            onClick = onNextClick, modifier = Modifier.align(Alignment.BottomEnd)
         ) {
             Text(text = stringResource(id = R.string.next))
         }
@@ -125,8 +123,8 @@ internal fun WeightScreen(
 @ThemePreviews
 @Composable
 fun HeightScreenPrev() {
-    Background {
-        CalorieTrackerTheme {
+    CalorieTrackerTheme {
+        Background {
             WeightScreen()
         }
     }
