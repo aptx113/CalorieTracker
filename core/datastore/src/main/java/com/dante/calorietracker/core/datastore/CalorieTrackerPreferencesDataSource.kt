@@ -35,7 +35,7 @@ class CalorieTrackerPreferencesDataSource(private val dataStore: DataStore<Prefe
         val GenderKey = stringPreferencesKey(genderKey)
         val AgeKey = intPreferencesKey(ageKey)
         val WeightKey = floatPreferencesKey(weightKey)
-        val HeightKey = floatPreferencesKey(heightKey)
+        val HeightKey = intPreferencesKey(heightKey)
         val ActivityLevelKey = stringPreferencesKey(activityLevelKey)
         val GoalTypeKey = stringPreferencesKey(goalTypeKey)
         val CarbRatioKey = floatPreferencesKey(carbRatioKey)
@@ -43,12 +43,12 @@ class CalorieTrackerPreferencesDataSource(private val dataStore: DataStore<Prefe
         val FatRatioKey = floatPreferencesKey(fatRatioKey)
     }
 
-   override val userInfo = dataStore.data.map {
+    override val userInfo = dataStore.data.map {
         UserInfo(
             gender = (it[PreferencesKey.GenderKey] ?: "").getGenderFromString(),
             age = it[PreferencesKey.AgeKey] ?: 0,
             weight = it[PreferencesKey.WeightKey] ?: 0f,
-            height = it[PreferencesKey.HeightKey] ?: 0f,
+            height = it[PreferencesKey.HeightKey] ?: 0,
             activityLevel = getActivityLevelFromString(it[PreferencesKey.ActivityLevelKey] ?: ""),
             goalType = GoalType.getGoalTypeFromString(it[PreferencesKey.GoalTypeKey] ?: ""),
             carbRatio = it[PreferencesKey.CarbRatioKey] ?: 0f,
@@ -79,12 +79,12 @@ class CalorieTrackerPreferencesDataSource(private val dataStore: DataStore<Prefe
     override val weight: Flow<Float>
         get() = dataStore.getPreferencesFlow(PreferencesKey.WeightKey, 1f)
 
-    override suspend fun saveHeight(height: Float) {
+    override suspend fun saveHeight(height: Int) {
         dataStore.editPreferences(PreferencesKey.HeightKey, height)
     }
 
-    override val height: Flow<Float>
-        get() = dataStore.getPreferencesFlow(PreferencesKey.HeightKey, 10f)
+    override val height: Flow<Int>
+        get() = dataStore.getPreferencesFlow(PreferencesKey.HeightKey, 10)
 
     override suspend fun saveActivityLevel(activityLevel: ActivityLevel) {
         dataStore.editPreferences(PreferencesKey.ActivityLevelKey, activityLevel.level)

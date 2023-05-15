@@ -1,4 +1,4 @@
-package com.dante.calorietracker.feature.age
+package com.dante.calorietracker.feature.weight
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -35,52 +35,51 @@ import com.dante.calorietracker.core.ui.theme.CalorieTrackerTheme
 import com.dante.calorietracker.core.ui.unit.LocalSpacing
 
 @Composable
-internal fun AgeRoute(
-    modifier: Modifier = Modifier,
+internal fun WeightRoute(
     onNavigated: () -> Unit,
-    viewModel: AgeViewModel = hiltViewModel()
+    modifier: Modifier = Modifier,
+    viewModel: WeightViewModel = hiltViewModel()
 ) {
-    val age by viewModel.age.collectAsStateWithLifecycle()
-    AgeScreen(
+
+    val weight by viewModel.weight.collectAsStateWithLifecycle()
+    WeightScreen(
         modifier = modifier,
-        onAgeEntered = viewModel::onAgeEntered,
-        onNextClick = {
-            viewModel.onNextClick(onNavigated)
-        },
-        age = age,
-        viewModel.shouldDisplayAgeNotFilled,
-        clearAgeNotFilledState = viewModel::clearAgeNotFilledState
+        onWeightEnter = viewModel::onWeightEnter,
+        onNextClick = { viewModel.onNextClick(onNavigated) },
+        weight = weight,
+        shouldDisplayWeightNotFilled = viewModel.shouldDisplayWeightNotFilled,
+        clearWeightNotFilledState = viewModel::clearWeightNotFilledState
     )
 }
 
 @Composable
-internal fun AgeScreen(
+internal fun WeightScreen(
     modifier: Modifier = Modifier,
-    onAgeEntered: (String) -> Unit = {},
+    onWeightEnter: (String) -> Unit = {},
     onNextClick: () -> Unit = {},
-    age: String = "",
-    shouldDisplayAgeNotFilled: Boolean = false,
-    clearAgeNotFilledState: () -> Unit = {}
+    weight: String = "",
+    shouldDisplayWeightNotFilled: Boolean = false,
+    clearWeightNotFilledState: () -> Unit = {}
 ) {
     val spacing = LocalSpacing.current
     val focusManager = LocalFocusManager.current
-    val ageIsEmptyMessage = stringResource(id = R.string.error_age_cant_be_empty)
+    val weightIsEmptyMessage = stringResource(id = R.string.error_weight_cant_be_empty)
     val confirmTest = stringResource(id = R.string.confirm)
     val snackBarDelegate = LocalSnackBarDelegate.current
 
-    LaunchedEffect(shouldDisplayAgeNotFilled) {
-        if (shouldDisplayAgeNotFilled) {
+    LaunchedEffect(shouldDisplayWeightNotFilled) {
+        if (shouldDisplayWeightNotFilled) {
             val snackBarResult = snackBarDelegate.showSnackBarAsync(
-                message = ageIsEmptyMessage,
+                message = weightIsEmptyMessage,
                 actionLabel = confirmTest,
                 duration = SnackbarDuration.Short
             )?.await()
             when (snackBarResult) {
                 SnackbarResult.ActionPerformed -> {
-                    clearAgeNotFilledState()
+                    clearWeightNotFilledState()
                 }
 
-                else -> clearAgeNotFilledState()
+                else -> clearWeightNotFilledState()
             }
         }
     }
@@ -96,23 +95,22 @@ internal fun AgeScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = stringResource(id = R.string.whats_your_age),
+                text = stringResource(id = R.string.whats_your_weight),
                 style = MaterialTheme.typography.titleLarge
             )
             Spacer(modifier = Modifier.height(spacing.space16))
             UnitTextField(
-                value = age,
-                onValueChange = onAgeEntered,
-                unit = stringResource(id = R.string.years),
+                value = weight,
+                onValueChange = onWeightEnter,
+                unit = stringResource(id = R.string.kg),
                 keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number,
+                    keyboardType = KeyboardType.Decimal,
                     imeAction = ImeAction.Done
                 ),
                 keyboardActions = KeyboardActions(onDone = {
                     focusManager.clearFocus()
                 }),
-                modifier = Modifier
-                    .testTag("ageTextField")
+                modifier = Modifier.testTag(WEIGHT_TEXT_FIELD)
             )
         }
         CalorieTrackerButton(
@@ -126,10 +124,12 @@ internal fun AgeScreen(
 
 @ThemePreviews
 @Composable
-fun AgeScreenPrev() {
+fun HeightScreenPrev() {
     Background {
         CalorieTrackerTheme {
-            AgeScreen()
+            WeightScreen()
         }
     }
 }
+
+const val WEIGHT_TEXT_FIELD = "weightTextField"

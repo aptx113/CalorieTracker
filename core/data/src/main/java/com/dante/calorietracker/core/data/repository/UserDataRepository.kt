@@ -12,7 +12,7 @@ interface UserDataRepository {
     suspend fun saveGender(gender: Gender)
     suspend fun saveAge(age: Int)
     suspend fun saveWeight(weight: Float)
-    suspend fun saveHeight(height: Float)
+    suspend fun saveHeight(height: Int)
     suspend fun saveActivityLevel(activityLevel: ActivityLevel)
     suspend fun saveGoalType(goalType: GoalType)
     suspend fun saveCarbRatio(carbRatio: Float)

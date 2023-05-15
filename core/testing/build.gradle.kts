@@ -31,6 +31,8 @@ dependencies {
     api(libs.androidx.test.rules)
     api(libs.androidx.test.runner)
     api(libs.hilt.android.testing)
+    api(libs.mockk)
+    api(libs.mockk.android)
 
     debugApi(libs.androidx.compose.ui.testManifest)
 }
