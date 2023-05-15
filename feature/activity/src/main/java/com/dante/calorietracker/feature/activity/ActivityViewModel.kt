@@ -18,7 +18,7 @@ class ActivityViewModel @Inject constructor(private val repository: UserDataRepo
     var selectedActivity by mutableStateOf<ActivityLevel>(ActivityLevel.Medium)
         private set
 
-    fun onActivityLevelClick(activityLevel: ActivityLevel) {
+    fun onActivityLevelSelect(activityLevel: ActivityLevel) {
         selectedActivity = activityLevel
     }
 

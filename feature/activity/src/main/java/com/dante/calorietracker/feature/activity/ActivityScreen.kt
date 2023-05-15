@@ -33,7 +33,7 @@ internal fun ActivityRoute(
     ActivityScreen(
         modifier = modifier,
         selectedActivity = viewModel.selectedActivity,
-        onSelectedChange = viewModel::onActivityLevelClick,
+        onSelectedChange = viewModel::onActivityLevelSelect,
         onNextClick = {
             viewModel.onNextClick(onNavigated)
         })
