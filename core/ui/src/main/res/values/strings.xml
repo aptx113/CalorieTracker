@@ -47,6 +47,9 @@
     <string name="percent_proteins">% proteins</string>
     <string name="percent_fats">% fats</string>
     <string name="percent_carbs">% carbs</string>
+    <string name="error_carbs_cant_be_empty">The carbs can\'t be empty</string>
+    <string name="error_proteins_cant_be_empty">The proteins can\'t be empty</string>
+    <string name="error_fat_cant_be_empty">The fat can\'t be empty</string>
     <string name="high">High</string>
     <string name="medium">Medium</string>
     <string name="years">years</string>
