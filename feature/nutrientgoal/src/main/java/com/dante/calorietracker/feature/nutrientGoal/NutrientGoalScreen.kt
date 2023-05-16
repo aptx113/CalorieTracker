@@ -38,10 +38,7 @@ import com.dante.calorietracker.core.ui.component.TextFieldError
 import com.dante.calorietracker.core.ui.component.ThemePreviews
 import com.dante.calorietracker.core.ui.theme.CalorieTrackerTheme
 import com.dante.calorietracker.core.ui.unit.LocalSpacing
-import com.dante.calorietracker.core.ui.utils.Nutrient
-import com.dante.calorietracker.core.ui.utils.NutrientGoalState
-import com.dante.calorietracker.core.ui.utils.NutrientStateSaver
-import com.dante.calorietracker.core.ui.utils.TextFieldState
+import com.dante.calorietracker.core.ui.state.TextFieldState
 
 @Composable
 internal fun NutrientGoalRoute(
@@ -72,10 +69,10 @@ internal fun NutrientGoalScreen(
         mutableStateOf(NutrientGoalState(Nutrient.Carbs))
     }
     val proteinsState by rememberSaveable(stateSaver = NutrientStateSaver) {
-        mutableStateOf(NutrientGoalState(Nutrient.Protein))
+        mutableStateOf(NutrientGoalState(Nutrient.Proteins))
     }
     val fatsState by rememberSaveable(stateSaver = NutrientStateSaver) {
-        mutableStateOf(NutrientGoalState(Nutrient.Fat))
+        mutableStateOf(NutrientGoalState(Nutrient.Fats))
     }
     Box(
         modifier = modifier

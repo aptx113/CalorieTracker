@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dante.calorietracker.core.data.repository.UserDataRepository
 import com.dante.calorietracker.core.domain.DecimalValidatorUseCase
-import com.dante.calorietracker.core.ui.utils.TextFieldState
+import com.dante.calorietracker.core.ui.state.TextFieldState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

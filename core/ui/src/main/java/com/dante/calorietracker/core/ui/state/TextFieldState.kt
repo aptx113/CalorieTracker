@@ -1,4 +1,4 @@
-package com.dante.calorietracker.core.ui.utils
+package com.dante.calorietracker.core.ui.state
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

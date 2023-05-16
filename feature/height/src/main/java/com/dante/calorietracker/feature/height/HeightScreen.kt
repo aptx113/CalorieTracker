@@ -18,7 +18,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -61,7 +60,6 @@ internal fun HeightScreen(
     clearHeightNotFilledState: () -> Unit = {}
 ) {
     val spacing = LocalSpacing.current
-    val focusManager = LocalFocusManager.current
     val heightIsEmptyMessage = stringResource(id = R.string.error_height_cant_be_empty)
     val confirmTest = stringResource(id = R.string.confirm)
     val snackBarDelegate = LocalSnackBarDelegate.current
@@ -107,7 +105,7 @@ internal fun HeightScreen(
                     imeAction = ImeAction.Done
                 ),
                 keyboardActions = KeyboardActions(onDone = {
-                    focusManager.clearFocus()
+                    onNavigated()
                 }),
                 modifier = Modifier.testTag(HEIGHT_TEXT_FIELD)
             )
