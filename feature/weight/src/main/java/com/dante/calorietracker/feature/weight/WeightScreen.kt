@@ -18,7 +18,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -62,7 +61,6 @@ internal fun WeightScreen(
     clearWeightNotFilledState: () -> Unit = {}
 ) {
     val spacing = LocalSpacing.current
-    val focusManager = LocalFocusManager.current
     val weightIsEmptyMessage = stringResource(id = R.string.error_weight_cant_be_empty)
     val confirmTest = stringResource(id = R.string.confirm)
     val snackBarDelegate = LocalSnackBarDelegate.current
@@ -107,7 +105,7 @@ internal fun WeightScreen(
                     keyboardType = KeyboardType.Decimal, imeAction = ImeAction.Done
                 ),
                 keyboardActions = KeyboardActions(onDone = {
-                    focusManager.clearFocus()
+                    onNextClick()
                 }),
                 modifier = Modifier.testTag(WEIGHT_TEXT_FIELD)
             )
