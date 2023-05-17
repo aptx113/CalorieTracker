@@ -21,14 +21,14 @@ android {
 
 dependencies {
     implementation(project(CORE_COMMON))
+    implementation(project(":core:database"))
     implementation(project(":core:datastore"))
     implementation(project(CORE_MODEL))
+    implementation(project(":core:network"))
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.serialization.json)
 
     testImplementation(project(CORE_TESTING))
-
-    implementation(libs.androidx.core.ktx)
-
-    implementation(libs.kotlinx.datetime)
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.serialization.json)
 }
