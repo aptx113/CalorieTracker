@@ -51,6 +51,9 @@ android {
             isIncludeAndroidResources = true
         }
     }
+    hilt {
+        enableAggregatingTask = true
+    }
     namespace = Config.APP_ID
 }
 
