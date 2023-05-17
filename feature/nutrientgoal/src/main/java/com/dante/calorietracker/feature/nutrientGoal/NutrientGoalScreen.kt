@@ -109,7 +109,7 @@ internal fun NutrientGoalScreen(
             NutrientField(
                 textFieldState = proteinsState,
                 focusRequester = focusRequester,
-                labelRes = R.string.protein,
+                labelRes = R.string.proteins,
                 suffixRes = R.string.percent_proteins,
                 imeAction = ImeAction.Next,
                 keyboardActions = KeyboardActions(onNext = {
@@ -123,7 +123,7 @@ internal fun NutrientGoalScreen(
             NutrientField(
                 textFieldState = fatsState,
                 focusRequester = focusRequester,
-                labelRes = R.string.fat,
+                labelRes = R.string.fats,
                 suffixRes = R.string.percent_fats,
                 imeAction = ImeAction.Done,
                 keyboardActions = KeyboardActions(onDone = {

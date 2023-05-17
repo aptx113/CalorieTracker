@@ -18,8 +18,8 @@
     <string name="error_weight_cant_be_empty">The weight can\'t be empty</string>
     <string name="kcal">kcal</string>
     <string name="carbs">Carbs</string>
-    <string name="protein">Protein</string>
-    <string name="fat">Fat</string>
+    <string name="proteins">Protein</string>
+    <string name="fats">Fat</string>
     <string name="previous_day">Previous day</string>
     <string name="next_day">Next day</string>
     <string name="yesterday">Yesterday</string>
@@ -49,7 +49,7 @@
     <string name="percent_carbs">% carbs</string>
     <string name="error_carbs_cant_be_empty">The carbs can\'t be empty</string>
     <string name="error_proteins_cant_be_empty">The proteins can\'t be empty</string>
-    <string name="error_fat_cant_be_empty">The fat can\'t be empty</string>
+    <string name="error_fats_cant_be_empty">The fat can\'t be empty</string>
     <string name="high">High</string>
     <string name="medium">Medium</string>
     <string name="years">years</string>

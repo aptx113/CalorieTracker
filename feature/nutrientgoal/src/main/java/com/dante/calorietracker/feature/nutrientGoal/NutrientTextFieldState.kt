@@ -21,7 +21,7 @@ private fun nutrientGoalError(nutrient: Nutrient?): Int {
     return when (nutrient) {
         Nutrient.Carbs -> R.string.error_carbs_cant_be_empty
         Nutrient.Proteins -> R.string.error_proteins_cant_be_empty
-        Nutrient.Fats -> R.string.error_fat_cant_be_empty
+        Nutrient.Fats -> R.string.error_fats_cant_be_empty
         else -> 0
     }
 }
