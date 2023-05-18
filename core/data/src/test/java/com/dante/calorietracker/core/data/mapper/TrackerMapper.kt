@@ -30,7 +30,7 @@ class TrackerMapper {
             "https://static.openfoodfacts.org/images/products/541/118/811/0485/front_fr.3.400.jpg",
             trackableFood.imageUrl
         )
-        assertEquals(0, trackableFood.caloriePer100g)
+        assertEquals(0, trackableFood.caloriesPer100g)
         assertEquals(0, trackableFood.carbsPer100g)
         assertEquals(0, trackableFood.proteinsPer100g)
         assertEquals(0, trackableFood.fatsPer100g)

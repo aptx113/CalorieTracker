@@ -15,7 +15,7 @@ import javax.inject.Inject
 class GenderViewModel @Inject constructor(private val repository: UserDataRepository) :
     ViewModel() {
 
-    var selectedGender by mutableStateOf<Gender>(Gender.Other)
+    var selectedGender by mutableStateOf<Gender>(Gender.Female)
         private set
 
     fun onGenderClick(gender: Gender) {
