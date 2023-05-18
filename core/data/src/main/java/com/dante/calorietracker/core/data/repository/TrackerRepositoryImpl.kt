@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import kotlinx.datetime.LocalDate
 import javax.inject.Inject
 
@@ -31,11 +32,15 @@ class TrackerRepositoryImpl @Inject constructor(
         }.flowOn(ioDispatcher)
 
     override suspend fun insertTrackedFood(trackedFood: TrackedFood) {
-        dao.insertTrackedFood(trackedFood.asTrackedFoodEntity())
+        withContext(ioDispatcher) {
+            dao.insertTrackedFood(trackedFood.asTrackedFoodEntity())
+        }
     }
 
     override suspend fun deleteTrackedFood(trackedFood: TrackedFood) {
-        dao.deleteTrackedFood(trackedFood.asTrackedFoodEntity())
+        withContext(ioDispatcher) {
+            dao.deleteTrackedFood(trackedFood.asTrackedFoodEntity())
+        }
     }
 
     override fun getFoodForDate(localDate: LocalDate): Flow<List<TrackedFood>> {
