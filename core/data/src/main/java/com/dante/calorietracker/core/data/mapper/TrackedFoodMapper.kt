@@ -6,7 +6,7 @@ import com.dante.calorietracker.core.model.TrackedFood
 import com.dante.calorietracker.core.model.asMealType
 import kotlinx.datetime.LocalDate
 
-fun TrackedFoodEntity.toTrackedFood(): TrackedFood = TrackedFood(
+fun TrackedFoodEntity.asTrackedFood(): TrackedFood = TrackedFood(
     name = name,
     carbs = carbs,
     proteins = proteins,
@@ -19,7 +19,7 @@ fun TrackedFoodEntity.toTrackedFood(): TrackedFood = TrackedFood(
     id = id
 )
 
-fun TrackedFood.toTrackedFoodEntity(): TrackedFoodEntity = TrackedFoodEntity(
+fun TrackedFood.asTrackedFoodEntity(): TrackedFoodEntity = TrackedFoodEntity(
     name = name,
     carbs = carbs,
     proteins = proteins,

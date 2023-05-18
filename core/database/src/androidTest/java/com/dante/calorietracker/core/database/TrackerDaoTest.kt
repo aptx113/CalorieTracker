@@ -44,6 +44,7 @@ class TrackerDaoTest {
             assertEquals(trackedFood, awaitItem().first { it.id == trackedFood.id })
             dao.deleteTrackedFood(trackedFood)
             assertEquals(null, awaitItem().firstOrNull { it.id == trackedFood.id })
+            cancel()
         }
     }
 }
