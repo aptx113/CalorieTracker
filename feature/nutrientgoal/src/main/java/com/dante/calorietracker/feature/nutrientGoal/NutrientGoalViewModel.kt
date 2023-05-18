@@ -21,18 +21,18 @@ class NutrientGoalViewModel @Inject constructor(
 
     fun onNextClick(
         carbsState: TextFieldState,
-        proteinsState: TextFieldState,
+        proteinState: TextFieldState,
         fatState: TextFieldState,
         action: () -> Unit
     ) = viewModelScope.launch {
         carbsState.displayErrors = !carbsState.isValid
-        proteinsState.displayErrors = !proteinsState.isValid
+        proteinState.displayErrors = !proteinState.isValid
         fatState.displayErrors = !fatState.isValid
 
-        if (carbsState.isValid && proteinsState.isValid && fatState.isValid) {
+        if (carbsState.isValid && proteinState.isValid && fatState.isValid) {
             userDataRepository.apply {
                 saveCarbRatio(carbsState.text.toFloat())
-                saveProteinRatio(proteinsState.text.toFloat())
+                saveProteinRatio(proteinState.text.toFloat())
                 saveFatRatio(fatState.text.toFloat())
             }
             action()
