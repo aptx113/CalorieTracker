@@ -49,7 +49,7 @@ internal fun GenderScreen(
     modifier: Modifier = Modifier
 ) {
     val spacing = LocalSpacing.current
-    val genders = listOf(Gender.Male, Gender.Female, Gender.Other)
+    val genders = listOf(Gender.Male, Gender.Female)
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -75,27 +75,6 @@ internal fun GenderScreen(
                         Text(text = it.gender)
                     }
                 }
-//                CalorieTrackerSuggestionChip(
-//                    isSelected = selectedGender is Gender.Male,
-//                    onSelectedChange = { onSelectedChange(Gender.Male) },
-//                    modifier = modifier.padding(spacing.space8)
-//                ) {
-//                    Text(text = stringResource(id = R.string.male))
-//                }
-//                CalorieTrackerSuggestionChip(
-//                    isSelected = selectedGender is Gender.Female,
-//                    onSelectedChange = { onSelectedChange(Gender.Female) },
-//                    modifier = modifier.padding(spacing.space8)
-//                ) {
-//                    Text(text = stringResource(id = R.string.female))
-//                }
-//                CalorieTrackerSuggestionChip(
-//                    isSelected = selectedGender is Gender.Other,
-//                    onSelectedChange = { onSelectedChange(Gender.Other) },
-//                    modifier = modifier.padding(spacing.space8)
-//                ) {
-//                    Text(text = stringResource(id = R.string.other))
-//                }
             }
         }
         CalorieTrackerButton(

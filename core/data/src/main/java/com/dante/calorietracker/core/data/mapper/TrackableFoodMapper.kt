@@ -12,7 +12,7 @@ fun NetworkProduct.asTrackableFood(): TrackableFood {
     return TrackableFood(
         name = productName ?: "",
         imageUrl = imageFrontThumbUrl,
-        caloriePer100g = caloriesPer100g,
+        caloriesPer100g = caloriesPer100g,
         carbsPer100g = carbsPer100g,
         proteinsPer100g = proteinsPer100g,
         fatsPer100g = fatsPer100g
