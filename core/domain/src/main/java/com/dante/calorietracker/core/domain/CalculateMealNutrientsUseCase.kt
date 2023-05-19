@@ -16,7 +16,7 @@ import kotlin.math.roundToInt
 @ViewModelScoped
 class CalculateMealNutrientsUseCase @Inject constructor(private val userDataRepository: UserDataRepository) {
 
-    operator fun invoke(trackedFoods: List<TrackedFood>): Flow<CalculateMealNutrientsResult> {
+    operator fun invoke(trackedFoods: List<TrackedFood>): Flow<Pair<CalculateMealNutrientsResult, List<TrackedFood>>> {
         val allNutrients = trackedFoods.groupBy { it.mealType }.mapValues { entry ->
             val type = entry.key
             val foods = entry.value
@@ -24,14 +24,14 @@ class CalculateMealNutrientsUseCase @Inject constructor(private val userDataRepo
                 carbs = foods.sumOf { it.carbs },
                 protein = foods.sumOf { it.protein },
                 fat = foods.sumOf { it.fat },
-                calorie = foods.sumOf { it.calorie },
+                calories = foods.sumOf { it.calorie },
                 mealType = type
             )
         }
         val totalCarbs = allNutrients.values.sumOf { it.carbs }
         val totalProtein = allNutrients.values.sumOf { it.protein }
         val totalFat = allNutrients.values.sumOf { it.fat }
-        val totalCalorie = allNutrients.values.sumOf { it.calorie }
+        val totalCalorie = allNutrients.values.sumOf { it.calories }
 
         val userInfo = userDataRepository.userInfo
 
@@ -45,14 +45,14 @@ class CalculateMealNutrientsUseCase @Inject constructor(private val userDataRepo
                 totalCarbs = totalCarbs,
                 totalProtein = totalProtein,
                 totalFat = totalFat,
-                totalCalorie = totalCalorie,
+                totalCalories = totalCalorie,
                 caloriesGoal = calorieGoal,
                 carbsGoal = carbsGoal,
                 proteinGoal = proteinGoal,
                 fatGoal = fatGoal,
                 mealNutrients = allNutrients
             )
-        }
+        }.map { it to trackedFoods }
         return result
     }
 
@@ -86,7 +86,7 @@ class CalculateMealNutrientsUseCase @Inject constructor(private val userDataRepo
 }
 
 data class MealNutrients(
-    val calorie: Int,
+    val calories: Int,
     val carbs: Int,
     val protein: Int,
     val fat: Int,
@@ -101,6 +101,6 @@ data class CalculateMealNutrientsResult(
     val totalCarbs: Int,
     val totalProtein: Int,
     val totalFat: Int,
-    val totalCalorie: Int,
+    val totalCalories: Int,
     val mealNutrients: Map<MealType, MealNutrients>
 )
