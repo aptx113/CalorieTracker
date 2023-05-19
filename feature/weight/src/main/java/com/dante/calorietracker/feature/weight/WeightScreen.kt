@@ -31,7 +31,7 @@ import com.dante.calorietracker.core.ui.component.ThemePreviews
 import com.dante.calorietracker.core.ui.component.UnitTextField
 import com.dante.calorietracker.core.ui.delegate.LocalSnackBarDelegate
 import com.dante.calorietracker.core.ui.theme.CalorieTrackerTheme
-import com.dante.calorietracker.core.ui.unit.LocalSpacing
+import com.dante.calorietracker.core.ui.unit.LocalDimens
 
 @Composable
 internal fun WeightRoute(
@@ -60,7 +60,7 @@ internal fun WeightScreen(
     shouldDisplayWeightNotFilled: Boolean = false,
     clearWeightNotFilledState: () -> Unit = {}
 ) {
-    val spacing = LocalSpacing.current
+    val spacing = LocalDimens.current
     val weightIsEmptyMessage = stringResource(id = R.string.error_weight_cant_be_empty)
     val confirmTest = stringResource(id = R.string.confirm)
     val snackBarDelegate = LocalSnackBarDelegate.current

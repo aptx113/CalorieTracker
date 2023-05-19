@@ -37,7 +37,7 @@ import com.dante.calorietracker.core.ui.component.CalorieTrackerTextField
 import com.dante.calorietracker.core.ui.component.TextFieldError
 import com.dante.calorietracker.core.ui.component.ThemePreviews
 import com.dante.calorietracker.core.ui.theme.CalorieTrackerTheme
-import com.dante.calorietracker.core.ui.unit.LocalSpacing
+import com.dante.calorietracker.core.ui.unit.LocalDimens
 import com.dante.calorietracker.core.ui.state.TextFieldState
 
 @Composable
@@ -63,7 +63,7 @@ internal fun NutrientGoalScreen(
     onNext: (TextFieldState, TextFieldState, TextFieldState) -> Unit = { _, _, _ -> },
     onDecimalValidated: (String, Int, Int) -> String = { _, _, _ -> "" }
 ) {
-    val spacing = LocalSpacing.current
+    val spacing = LocalDimens.current
 
     val carbsState by rememberSaveable(stateSaver = NutrientStateSaver) {
         mutableStateOf(NutrientGoalState(Nutrient.Carbs))

@@ -22,7 +22,7 @@ import com.dante.calorietracker.core.ui.component.CalorieTrackerButton
 import com.dante.calorietracker.core.ui.component.CalorieTrackerSuggestionChip
 import com.dante.calorietracker.core.ui.component.ThemePreviews
 import com.dante.calorietracker.core.ui.theme.CalorieTrackerTheme
-import com.dante.calorietracker.core.ui.unit.LocalSpacing
+import com.dante.calorietracker.core.ui.unit.LocalDimens
 
 @Composable
 internal fun GoalRoute(
@@ -45,7 +45,7 @@ internal fun GoalScreen(
     onSelectedChange: (GoalType) -> Unit = {},
     onNextClick: () -> Unit = {},
 ) {
-    val spacing = LocalSpacing.current
+    val spacing = LocalDimens.current
     val goalType = listOf(GoalType.GainWeight, GoalType.KeepWeight, GoalType.LoseWeight)
     Box(
         modifier = modifier
