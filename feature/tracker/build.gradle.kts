@@ -9,3 +9,7 @@ plugins {
 android {
     namespace = Config.trackerNameSpace
 }
+
+dependencies {
+    implementation(libs.kotlinx.datetime)
+}

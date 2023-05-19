@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -34,10 +33,8 @@ import com.dante.calorietracker.core.ui.delegate.SnackBarDelegateImpl
 import com.dante.calorietracker.navigation.CalorieTrackerNavHost
 import com.dante.calorietracker.navigation.TopLevelDestination
 
-@OptIn(
-    ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class,
-    ExperimentalLayoutApi::class
-)
+
+@OptIn(ExperimentalLayoutApi::class, ExperimentalComposeUiApi::class)
 @Composable
 fun CalorieTrackerApp(
     windowSizeClass: WindowSizeClass,

@@ -18,4 +18,7 @@ interface UserDataRepository {
     suspend fun saveCarbRatio(carbRatio: Float)
     suspend fun saveProteinRatio(proteinRatio: Float)
     suspend fun saveFatRatio(fatRatio: Float)
+
+    suspend fun saveShouldShowOnboard(shouldShowOnboard: Boolean)
+    val shouldShowOnboard: Flow<Boolean>
 }
