@@ -16,43 +16,43 @@ import kotlin.math.roundToInt
 @ViewModelScoped
 class CalculateMealNutrientsUseCase @Inject constructor(private val userDataRepository: UserDataRepository) {
 
-    operator fun invoke(trackedFoods: List<TrackedFood>): Flow<CalculateMealNutrientsResult> {
+    operator fun invoke(trackedFoods: List<TrackedFood>): Flow<Pair<CalculateMealNutrientsResult, List<TrackedFood>>> {
         val allNutrients = trackedFoods.groupBy { it.mealType }.mapValues { entry ->
             val type = entry.key
             val foods = entry.value
             MealNutrients(
                 carbs = foods.sumOf { it.carbs },
-                proteins = foods.sumOf { it.proteins },
-                fats = foods.sumOf { it.fats },
-                calories = foods.sumOf { it.calories },
+                protein = foods.sumOf { it.protein },
+                fat = foods.sumOf { it.fat },
+                calories = foods.sumOf { it.calorie },
                 mealType = type
             )
         }
         val totalCarbs = allNutrients.values.sumOf { it.carbs }
-        val totalProteins = allNutrients.values.sumOf { it.proteins }
-        val totalFats = allNutrients.values.sumOf { it.fats }
-        val totalCalories = allNutrients.values.sumOf { it.calories }
+        val totalProtein = allNutrients.values.sumOf { it.protein }
+        val totalFat = allNutrients.values.sumOf { it.fat }
+        val totalCalorie = allNutrients.values.sumOf { it.calories }
 
         val userInfo = userDataRepository.userInfo
 
         val result = userInfo.map {
-            val caloriesGoal = calculateDailyCaloriesRequirement(it)
-            val carbsGoal = (caloriesGoal * it.carbRatio / 4f).roundToInt()
-            val proteinsGoal = (caloriesGoal * it.proteinRatio / 4f).roundToInt()
-            val fatsGoal = (caloriesGoal * it.fatRatio / 9f).roundToInt()
+            val calorieGoal = calculateDailyCaloriesRequirement(it)
+            val carbsGoal = (calorieGoal * it.carbRatio / 4f).roundToInt()
+            val proteinGoal = (calorieGoal * it.proteinRatio / 4f).roundToInt()
+            val fatGoal = (calorieGoal * it.fatRatio / 9f).roundToInt()
 
             CalculateMealNutrientsResult(
                 totalCarbs = totalCarbs,
-                totalProteins = totalProteins,
-                totalFats = totalFats,
-                totalCalories = totalCalories,
-                caloriesGoal = caloriesGoal,
+                totalProtein = totalProtein,
+                totalFat = totalFat,
+                totalCalories = totalCalorie,
+                caloriesGoal = calorieGoal,
                 carbsGoal = carbsGoal,
-                proteinsGoal = proteinsGoal,
-                fatsGoal = fatsGoal,
+                proteinGoal = proteinGoal,
+                fatGoal = fatGoal,
                 mealNutrients = allNutrients
             )
-        }
+        }.map { it to trackedFoods }
         return result
     }
 
@@ -88,19 +88,19 @@ class CalculateMealNutrientsUseCase @Inject constructor(private val userDataRepo
 data class MealNutrients(
     val calories: Int,
     val carbs: Int,
-    val proteins: Int,
-    val fats: Int,
+    val protein: Int,
+    val fat: Int,
     val mealType: MealType
 )
 
 data class CalculateMealNutrientsResult(
     val carbsGoal: Int,
-    val proteinsGoal: Int,
-    val fatsGoal: Int,
+    val proteinGoal: Int,
+    val fatGoal: Int,
     val caloriesGoal: Int,
     val totalCarbs: Int,
-    val totalProteins: Int,
-    val totalFats: Int,
+    val totalProtein: Int,
+    val totalFat: Int,
     val totalCalories: Int,
     val mealNutrients: Map<MealType, MealNutrients>
 )

@@ -2,16 +2,13 @@ package com.dante.calorietracker.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-internal val BrightGreen = Color(0xFF00C713)
-val DarkGreen = Color(0xFF00790C)
-val Orange = Color(0xFFFFAA00)
-val CarbColor = Color(0xFFEEFF00)
-val ProteinColor = Orange
-val FatColor = Color(0xFFF44336)
-val LightGray = Color(0xFF808080)
-val MediumGray = Color(0xFF404040)
-val DarkGray = Color(0xFF202020)
-val TextWhite = Color(0xFFEEEEEE)
+val LightCarbsColor = Color(0xFF5c6300)
+val LightProteinColor = Color(0xFF825500)
+val LightFatColor = Color(0xFFbb1614)
+val DarkCarbsColor = Color(0xFFc2d000)
+val DarkProteinColor = Color(0xFFffb952)
+val DarkFatColor = Color(0xFFffb4a9)
+
 
 internal val DarkPrimary = Color(0xFF3de436)
 internal val DarkOnPrimary = Color(0xFF003a01)

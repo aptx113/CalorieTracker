@@ -30,10 +30,10 @@ class TrackerMapper {
             "https://static.openfoodfacts.org/images/products/541/118/811/0485/front_fr.3.400.jpg",
             trackableFood.imageUrl
         )
-        assertEquals(0, trackableFood.caloriesPer100g)
+        assertEquals(0, trackableFood.caloriePer100g)
         assertEquals(0, trackableFood.carbsPer100g)
-        assertEquals(0, trackableFood.proteinsPer100g)
-        assertEquals(0, trackableFood.fatsPer100g)
+        assertEquals(0, trackableFood.proteinPer100g)
+        assertEquals(0, trackableFood.fatPer100g)
     }
 
     @Test
@@ -59,10 +59,10 @@ class TrackerMapper {
             "https://static.openfoodfacts.org/images/products/541/118/811/0485/front_fr.3.400.jpg",
             trackedFood.imageUrl
         )
-        assertEquals(0, trackedFood.calories)
+        assertEquals(0, trackedFood.calorie)
         assertEquals(0, trackedFood.carbs)
-        assertEquals(0, trackedFood.proteins)
-        assertEquals(0, trackedFood.fats)
+        assertEquals(0, trackedFood.protein)
+        assertEquals(0, trackedFood.fat)
         assertEquals("breakfast", trackedFood.mealType.name)
         assertEquals(0, trackedFood.amount)
         assertEquals(1, trackedFood.date.dayOfMonth)
@@ -76,10 +76,10 @@ class TrackerMapper {
             id = 1,
             name = "Coca Cola",
             imageUrl = "https://static.openfoodfacts.org/images/products/541/118/811/0485/front_fr.3.400.jpg",
-            calories = 0,
+            calorie = 0,
             carbs = 0,
-            proteins = 0,
-            fats = 0,
+            protein = 0,
+            fat = 0,
             mealType = MealType.Lunch,
             amount = 0,
             date = LocalDate(2021, 9, 1),

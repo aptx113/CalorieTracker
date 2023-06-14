@@ -42,13 +42,13 @@ class NutrientGoalScreenTest {
     fun setup() {
         composeTestRule.activity.resources.apply {
             carbsFieldMatcher = hasText(getString(R.string.carbs))
-            proteinsFieldMatcher = hasText(getString(R.string.proteins))
-            fatsFieldMatcher = hasText(getString(R.string.fats))
+            proteinsFieldMatcher = hasText(getString(R.string.protein))
+            fatsFieldMatcher = hasText(getString(R.string.fat))
             next = hasText(getString(R.string.next))
 
             carbsError = getString(R.string.error_carbs_cant_be_empty)
-            proteinsError = getString(R.string.error_proteins_cant_be_empty)
-            fatsError = getString(R.string.error_fats_cant_be_empty)
+            proteinsError = getString(R.string.error_protein_cant_be_empty)
+            fatsError = getString(R.string.error_fat_cant_be_empty)
         }
 
         composeTestRule.setContent {

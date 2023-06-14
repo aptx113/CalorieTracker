@@ -2,7 +2,9 @@ package com.dante.calorietracker.core.ui.unit
 
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 data class Dimensions(
     val space0: Dp = 0.dp,
@@ -13,7 +15,11 @@ data class Dimensions(
     val space24: Dp = 24.dp,
     val space32: Dp = 32.dp,
     val space64: Dp = 64.dp,
-    val space100: Dp = 100.dp
+    val space100: Dp = 100.dp,
+
+    val size14: TextUnit = 14.sp,
+    val size20: TextUnit = 20.sp,
+    val size40: TextUnit = 40.sp
 )
 
-val LocalSpacing = staticCompositionLocalOf { Dimensions() }
+val LocalDimens = staticCompositionLocalOf { Dimensions() }

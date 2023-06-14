@@ -32,8 +32,8 @@ class NutrientGoalViewModelTest {
     @Before
     fun setup() {
         carbsState = NutrientGoalState(Nutrient.Carbs)
-        proteinsState = NutrientGoalState(Nutrient.Proteins)
-        fatsState = NutrientGoalState(Nutrient.Fats)
+        proteinsState = NutrientGoalState(Nutrient.Protein)
+        fatsState = NutrientGoalState(Nutrient.Fat)
     }
 
     @Test

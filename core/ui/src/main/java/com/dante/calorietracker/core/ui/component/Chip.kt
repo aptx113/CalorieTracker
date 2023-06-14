@@ -9,7 +9,7 @@ import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.dante.calorietracker.core.ui.unit.LocalSpacing
+import com.dante.calorietracker.core.ui.unit.LocalDimens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -20,7 +20,7 @@ fun CalorieTrackerSuggestionChip(
     enable: Boolean = true,
     label: @Composable () -> Unit
 ) {
-    val spacing = LocalSpacing.current
+    val spacing = LocalDimens.current
     FilterChip(
         selected = isSelected, onClick = onSelectedChange,
         label = {

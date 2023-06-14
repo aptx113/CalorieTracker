@@ -58,10 +58,10 @@ class TrackerRepositoryTest {
             repository.insertTrackedFood(
                 TrackedFood(
                     name = "Pasta",
-                    calories = 100,
+                    calorie = 100,
                     carbs = 13,
-                    fats = 2,
-                    proteins = 3,
+                    fat = 2,
+                    protein = 3,
                     date = LocalDate(2021, 1, 1), imageUrl = "",
                     amount = 2, mealType = MealType.Snack
                 )
@@ -75,10 +75,10 @@ class TrackerRepositoryTest {
     fun deleteTrackedFood_getFoodsForDate_returnEmptyList() = runTest {
         val item = TrackedFood(
             name = "Pasta",
-            calories = 100,
+            calorie = 100,
             carbs = 13,
-            fats = 2,
-            proteins = 3,
+            fat = 2,
+            protein = 3,
             date = LocalDate(2021, 1, 1), imageUrl = "",
             amount = 2, mealType = MealType.Snack
         )

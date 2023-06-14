@@ -14,7 +14,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.dante.calorietracker.core.ui.unit.Dimensions
-import com.dante.calorietracker.core.ui.unit.LocalSpacing
+import com.dante.calorietracker.core.ui.unit.LocalDimens
 
 @VisibleForTesting
 val DarkDefaultColorScheme = darkColorScheme(
@@ -89,12 +89,22 @@ fun CalorieTrackerTheme(
     val tintTheme =
         if (!disableDynamicTheming && supportsDynamicTheming()) TintTheme(colorScheme.primary) else TintTheme()
 
-    val defaultSpacing = Dimensions()
+    val carbsTheme =
+        if (isDarkTheme) SupportTheme(DarkCarbsColor) else SupportTheme(LightCarbsColor)
+    val proteinTheme =
+        if (isDarkTheme) SupportTheme(DarkProteinColor) else SupportTheme(LightProteinColor)
+    val fatTheme =
+        if (isDarkTheme) SupportTheme(DarkFatColor) else SupportTheme(LightFatColor)
+
+    val defaultDimens = Dimensions()
 
     CompositionLocalProvider(
         LocalBackgroundTheme provides defaultBackgroundTheme,
         LocalTintTheme provides tintTheme,
-        LocalSpacing provides defaultSpacing
+        LocalCarbsTheme provides carbsTheme,
+        LocalProteinTheme provides proteinTheme,
+        LocalFatTheme provides fatTheme,
+        LocalDimens provides defaultDimens
     ) {
         MaterialTheme(
             colorScheme = colorScheme,
