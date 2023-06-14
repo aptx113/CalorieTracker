@@ -48,4 +48,10 @@ class UserDataRepositoryImpl @Inject constructor(private val dataSource: Calorie
     override suspend fun saveFatRatio(fatRatio: Float) {
         dataSource.saveFatRatio(fatRatio)
     }
+
+    override suspend fun saveShouldShowOnboard(shouldShowOnboard: Boolean) {
+        dataSource.saveShouldShowOnboard(shouldShowOnboard)
+    }
+
+    override val shouldShowOnboard: Flow<Boolean> = dataSource.shouldShowOnboard
 }

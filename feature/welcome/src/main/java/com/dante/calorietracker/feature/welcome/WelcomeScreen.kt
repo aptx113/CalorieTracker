@@ -18,7 +18,7 @@ import com.dante.calorietracker.core.ui.component.Background
 import com.dante.calorietracker.core.ui.component.CalorieTrackerButton
 import com.dante.calorietracker.core.ui.component.ThemePreviews
 import com.dante.calorietracker.core.ui.theme.CalorieTrackerTheme
-import com.dante.calorietracker.core.ui.unit.LocalSpacing
+import com.dante.calorietracker.core.ui.unit.LocalDimens
 
 @Composable
 internal fun WelcomeRoute(onAgeNavigated: () -> Unit, modifier: Modifier = Modifier) {
@@ -27,7 +27,7 @@ internal fun WelcomeRoute(onAgeNavigated: () -> Unit, modifier: Modifier = Modif
 
 @Composable
 internal fun WelcomeScreen(onAgeNavigated: () -> Unit, modifier: Modifier = Modifier) {
-    val spacing = LocalSpacing.current
+    val spacing = LocalDimens.current
     Column(
         modifier = modifier
             .fillMaxSize()

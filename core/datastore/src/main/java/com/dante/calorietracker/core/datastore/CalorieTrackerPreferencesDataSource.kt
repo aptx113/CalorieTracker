@@ -2,6 +2,7 @@ package com.dante.calorietracker.core.datastore
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.floatPreferencesKey
@@ -27,6 +28,7 @@ private const val goalTypeKey = "goalTypeKey"
 private const val carbRatioKey = "carbRatioKey"
 private const val proteinRatioKey = "proteinRatioKey"
 private const val fatRatioKey = "fatRatioKey"
+private const val shouldShowOnboardKey = "shouldShowOnboardKey"
 
 class CalorieTrackerPreferencesDataSource(private val dataStore: DataStore<Preferences>) :
     CalorieTrackerPreferences {
@@ -41,6 +43,7 @@ class CalorieTrackerPreferencesDataSource(private val dataStore: DataStore<Prefe
         val CarbRatioKey = floatPreferencesKey(carbRatioKey)
         val ProteinRatioKey = floatPreferencesKey(proteinRatioKey)
         val FatRatioKey = floatPreferencesKey(fatRatioKey)
+        val ShouldShowOnboardKey = booleanPreferencesKey(shouldShowOnboardKey)
     }
 
     override val userInfo = dataStore.data.map {
@@ -61,68 +64,46 @@ class CalorieTrackerPreferencesDataSource(private val dataStore: DataStore<Prefe
         dataStore.editPreferences(PreferencesKey.GenderKey, gender.gender)
     }
 
-    override val gender: Flow<Gender>
-        get() = dataStore.getPreferencesFlow(PreferencesKey.GenderKey, "Other")
-            .map { it.getGenderFromString() }
-
     override suspend fun saveAge(age: Int) {
         dataStore.editPreferences(PreferencesKey.AgeKey, age)
     }
-
-    override val age: Flow<Int>
-        get() = dataStore.getPreferencesFlow(PreferencesKey.AgeKey, 1)
 
     override suspend fun saveWeight(weight: Float) {
         dataStore.editPreferences(PreferencesKey.WeightKey, weight)
     }
 
-    override val weight: Flow<Float>
-        get() = dataStore.getPreferencesFlow(PreferencesKey.WeightKey, 1f)
-
     override suspend fun saveHeight(height: Int) {
         dataStore.editPreferences(PreferencesKey.HeightKey, height)
     }
-
-    override val height: Flow<Int>
-        get() = dataStore.getPreferencesFlow(PreferencesKey.HeightKey, 10)
 
     override suspend fun saveActivityLevel(activityLevel: ActivityLevel) {
         dataStore.editPreferences(PreferencesKey.ActivityLevelKey, activityLevel.level)
     }
 
-    override val activityLevel: Flow<ActivityLevel>
-        get() = dataStore.getPreferencesFlow(PreferencesKey.ActivityLevelKey, "").map {
-            getActivityLevelFromString(it)
-        }
-
     override suspend fun saveGoalType(goalType: GoalType) {
         dataStore.editPreferences(PreferencesKey.GoalTypeKey, goalType.goal)
     }
-
-    override val goalType: Flow<GoalType>
-        get() = dataStore.getPreferencesFlow(PreferencesKey.GoalTypeKey, "")
-            .map { GoalType.getGoalTypeFromString(it) }
 
     override suspend fun saveCarbRatio(carbRatio: Float) {
         dataStore.editPreferences(PreferencesKey.CarbRatioKey, carbRatio)
     }
 
-    override val carbRatio: Flow<Float>
-        get() = dataStore.getPreferencesFlow(PreferencesKey.CarbRatioKey, 0f)
-
     override suspend fun saveProteinRatio(proteinRatio: Float) {
         dataStore.editPreferences(PreferencesKey.ProteinRatioKey, proteinRatio)
     }
-
-    override val proteinRatio: Flow<Float>
-        get() = dataStore.getPreferencesFlow(PreferencesKey.ProteinRatioKey, 0f)
 
     override suspend fun saveFatRatio(fatRatio: Float) {
         dataStore.editPreferences(PreferencesKey.FatRatioKey, fatRatio)
     }
 
-    override val fatRatio: Flow<Float>
-        get() = dataStore.getPreferencesFlow(PreferencesKey.FatRatioKey, 0f)
+    override suspend fun saveShouldShowOnboard(shouldShowOnboard: Boolean) {
+        dataStore.editPreferences(PreferencesKey.ShouldShowOnboardKey, shouldShowOnboard)
+    }
+
+    override val shouldShowOnboard: Flow<Boolean> = dataStore.getPreferencesFlow(
+        PreferencesKey.ShouldShowOnboardKey,
+        false
+    )
 }
 
 suspend fun <T> DataStore<Preferences>.editPreferences(

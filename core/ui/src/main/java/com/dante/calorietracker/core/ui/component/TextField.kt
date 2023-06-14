@@ -19,7 +19,7 @@ import androidx.compose.ui.layout.LastBaseline
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
-import com.dante.calorietracker.core.ui.unit.LocalSpacing
+import com.dante.calorietracker.core.ui.unit.LocalDimens
 
 @Composable
 fun UnitTextField(
@@ -31,7 +31,7 @@ fun UnitTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     textStyle: TextStyle = TextStyle(color = MaterialTheme.colorScheme.secondary, fontSize = 36.sp)
 ) {
-    val spacing = LocalSpacing.current
+    val spacing = LocalDimens.current
     Row(horizontalArrangement = Arrangement.Center) {
         BasicTextField(
             value = value,
@@ -83,7 +83,7 @@ fun CalorieTrackerTextField(
 @Composable
 fun TextFieldError(textError: String = "", textResError: Int = 0) {
     Row(modifier = Modifier.fillMaxWidth()) {
-        Spacer(modifier = Modifier.width(LocalSpacing.current.space8))
+        Spacer(modifier = Modifier.width(LocalDimens.current.space8))
         Text(
             text = textError.ifEmpty { stringResource(id = textResError) },
             modifier = Modifier.fillMaxWidth(),

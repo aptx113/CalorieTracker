@@ -31,7 +31,7 @@ import com.dante.calorietracker.core.ui.component.ThemePreviews
 import com.dante.calorietracker.core.ui.component.UnitTextField
 import com.dante.calorietracker.core.ui.delegate.LocalSnackBarDelegate
 import com.dante.calorietracker.core.ui.theme.CalorieTrackerTheme
-import com.dante.calorietracker.core.ui.unit.LocalSpacing
+import com.dante.calorietracker.core.ui.unit.LocalDimens
 
 @Composable
 internal fun AgeRoute(
@@ -61,7 +61,7 @@ internal fun AgeScreen(
     shouldDisplayAgeNotFilled: Boolean = false,
     clearAgeNotFilledState: () -> Unit = {}
 ) {
-    val spacing = LocalSpacing.current
+    val spacing = LocalDimens.current
     val ageIsEmptyMessage = stringResource(id = R.string.error_age_cant_be_empty)
     val confirmTest = stringResource(id = R.string.confirm)
     val snackBarDelegate = LocalSnackBarDelegate.current

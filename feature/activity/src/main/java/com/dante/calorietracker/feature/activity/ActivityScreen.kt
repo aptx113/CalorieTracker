@@ -22,7 +22,7 @@ import com.dante.calorietracker.core.ui.component.CalorieTrackerButton
 import com.dante.calorietracker.core.ui.component.CalorieTrackerSuggestionChip
 import com.dante.calorietracker.core.ui.component.ThemePreviews
 import com.dante.calorietracker.core.ui.theme.CalorieTrackerTheme
-import com.dante.calorietracker.core.ui.unit.LocalSpacing
+import com.dante.calorietracker.core.ui.unit.LocalDimens
 
 @Composable
 internal fun ActivityRoute(
@@ -46,7 +46,7 @@ internal fun ActivityScreen(
     onSelectedChange: (ActivityLevel) -> Unit = {},
     onNextClick: () -> Unit = {},
 ) {
-    val spacing = LocalSpacing.current
+    val spacing = LocalDimens.current
     val activityLevel = listOf(ActivityLevel.High, ActivityLevel.Medium, ActivityLevel.Low)
     Box(
         modifier = modifier

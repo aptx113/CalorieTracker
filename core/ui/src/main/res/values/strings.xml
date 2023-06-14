@@ -18,8 +18,8 @@
     <string name="error_weight_cant_be_empty">The weight can\'t be empty</string>
     <string name="kcal">kcal</string>
     <string name="carbs">Carbs</string>
-    <string name="proteins">Protein</string>
-    <string name="fats">Fat</string>
+    <string name="protein">Protein</string>
+    <string name="fat">Fat</string>
     <string name="previous_day">Previous day</string>
     <string name="next_day">Next day</string>
     <string name="yesterday">Yesterday</string>
@@ -44,12 +44,12 @@
     <string name="no_results">No results</string>
     <string name="error_invalid_values">These are not valid values</string>
     <string name="what_are_your_nutrient_goals">What are your nutrient goals?</string>
-    <string name="percent_proteins">% proteins</string>
-    <string name="percent_fats">% fats</string>
+    <string name="percent_protein">% protein</string>
+    <string name="percent_fat">% fat</string>
     <string name="percent_carbs">% carbs</string>
     <string name="error_carbs_cant_be_empty">The carbs can\'t be empty</string>
-    <string name="error_proteins_cant_be_empty">The proteins can\'t be empty</string>
-    <string name="error_fats_cant_be_empty">The fat can\'t be empty</string>
+    <string name="error_protein_cant_be_empty">The protein can\'t be empty</string>
+    <string name="error_fat_cant_be_empty">The fat can\'t be empty</string>
     <string name="high">High</string>
     <string name="medium">Medium</string>
     <string name="years">years</string>
