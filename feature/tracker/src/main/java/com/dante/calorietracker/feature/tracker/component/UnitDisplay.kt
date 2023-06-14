@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.sp
 import com.dante.calorietracker.core.ui.unit.LocalDimens
 
 @Composable
-fun UnitDisplay(
+internal fun UnitDisplay(
     amount: Int,
     unit: String,
     modifier: Modifier = Modifier,

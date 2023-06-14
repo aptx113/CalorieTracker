@@ -9,7 +9,7 @@ import com.dante.calorietracker.feature.nutrientGoal.NutrientGoalRoute
 const val nutrientGoalRoute = "nutrient_goal_route"
 
 fun NavController.navigateToNutrientGoal(navOptions: NavOptions? = null) =
-    this.navigate(nutrientGoalRoute)
+    this.navigate(nutrientGoalRoute, navOptions)
 
 fun NavGraphBuilder.nutrientGoalScreen(onNavigated: () -> Unit) {
     composable(route = nutrientGoalRoute) {

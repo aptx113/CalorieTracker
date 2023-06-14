@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import com.dante.calorietracker.core.ui.component.Background
@@ -72,7 +73,7 @@ fun CalorieTrackerApp(
                 Column(
                     Modifier
                         .fillMaxSize()
-                        .padding(padding)
+                        .padding(bottom = 16.dp)
                 ) {
                     CompositionLocalProvider(LocalSnackBarDelegate provides defaultSnackBarDelegateImpl) {
                         CalorieTrackerNavHost(appState)

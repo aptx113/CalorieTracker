@@ -14,7 +14,7 @@ import com.dante.calorietracker.core.ui.theme.LocalFatTheme
 import com.dante.calorietracker.core.ui.theme.LocalProteinTheme
 
 @Composable
-fun NutrientBar(
+internal fun NutrientBar(
     carbs: Int,
     protein: Int,
     fat: Int,

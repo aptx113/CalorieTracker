@@ -4,13 +4,15 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.dante.calorietracker.feature.tracker.TrackerOverviewRoute
 
 const val trackerRoute = "tracker_route"
 
 fun NavController.navigateToTracker(navOptions: NavOptions? = null) =
     this.navigate(trackerRoute, navOptions)
 
-fun NavGraphBuilder.trackerScreen() {
+fun NavGraphBuilder.trackerScreen(onNavigated: () -> Unit) {
     composable(route = trackerRoute) {
+        TrackerOverviewRoute(onNavigated = onNavigated)
     }
 }

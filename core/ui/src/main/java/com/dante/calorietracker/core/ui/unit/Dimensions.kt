@@ -18,7 +18,8 @@ data class Dimensions(
     val space100: Dp = 100.dp,
 
     val size14: TextUnit = 14.sp,
-    val size20: TextUnit = 20.sp
+    val size20: TextUnit = 20.sp,
+    val size40: TextUnit = 40.sp
 )
 
 val LocalDimens = staticCompositionLocalOf { Dimensions() }

@@ -44,7 +44,7 @@ fun CalorieTrackerNavHost(
         heightScreen { navController.navigateToWeight() }
         nutrientGoalScreen { navController.navigateToTracker() }
         searchScreen()
-        trackerScreen()
+        trackerScreen({})
         weightScreen(onNavigated = { navController.navigateToActivity() })
     }
 }

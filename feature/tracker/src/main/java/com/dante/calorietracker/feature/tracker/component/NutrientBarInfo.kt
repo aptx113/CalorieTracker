@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.dante.calorietracker.core.ui.R
 
 @Composable
-fun NutrientBarInfo(
+internal fun NutrientBarInfo(
     value: Int,
     goal: Int,
     name: String,
