@@ -15,6 +15,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,9 +37,9 @@ import com.dante.calorietracker.core.ui.component.CalorieTrackerButton
 import com.dante.calorietracker.core.ui.component.CalorieTrackerTextField
 import com.dante.calorietracker.core.ui.component.TextFieldError
 import com.dante.calorietracker.core.ui.component.ThemePreviews
+import com.dante.calorietracker.core.ui.state.TextFieldState
 import com.dante.calorietracker.core.ui.theme.CalorieTrackerTheme
 import com.dante.calorietracker.core.ui.unit.LocalDimens
-import com.dante.calorietracker.core.ui.state.TextFieldState
 
 @Composable
 internal fun NutrientGoalRoute(
@@ -74,6 +75,12 @@ internal fun NutrientGoalScreen(
     val fatsState by rememberSaveable(stateSaver = NutrientStateSaver) {
         mutableStateOf(NutrientGoalState(Nutrient.Fat))
     }
+    val focusRequester = remember { FocusRequester() }
+    val focusManager = LocalFocusManager.current
+
+    LaunchedEffect(true) {
+        focusRequester.requestFocus()
+    }
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -84,8 +91,6 @@ internal fun NutrientGoalScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            val focusRequester = remember { FocusRequester() }
-            val focusManager = LocalFocusManager.current
 
             Text(
                 text = stringResource(id = R.string.what_are_your_nutrient_goals),
@@ -94,7 +99,6 @@ internal fun NutrientGoalScreen(
             Spacer(modifier = Modifier.height(spacing.space24))
             NutrientField(
                 textFieldState = carbsState,
-                focusRequester = focusRequester,
                 labelRes = R.string.carbs,
                 suffixRes = R.string.percent_carbs,
                 imeAction = ImeAction.Next,
@@ -103,12 +107,12 @@ internal fun NutrientGoalScreen(
                         focusManager.moveFocus(FocusDirection.Down)
                     }
                 }),
-                onDecimalValidated = onDecimalValidated
+                onDecimalValidated = onDecimalValidated,
+                modifier = Modifier.focusRequester(focusRequester)
             )
             Spacer(modifier = Modifier.height(spacing.space16))
             NutrientField(
                 textFieldState = proteinsState,
-                focusRequester = focusRequester,
                 labelRes = R.string.protein,
                 suffixRes = R.string.percent_protein,
                 imeAction = ImeAction.Next,
@@ -122,7 +126,6 @@ internal fun NutrientGoalScreen(
             Spacer(modifier = Modifier.height(spacing.space16))
             NutrientField(
                 textFieldState = fatsState,
-                focusRequester = focusRequester,
                 labelRes = R.string.fat,
                 suffixRes = R.string.percent_fat,
                 imeAction = ImeAction.Done,
@@ -132,7 +135,7 @@ internal fun NutrientGoalScreen(
                         onNext(carbsState, proteinsState, fatsState)
                     }
                 }),
-                onDecimalValidated = onDecimalValidated
+                onDecimalValidated = onDecimalValidated,
             )
         }
         CalorieTrackerButton(
@@ -147,7 +150,6 @@ internal fun NutrientGoalScreen(
 @Composable
 private fun NutrientField(
     textFieldState: TextFieldState,
-    focusRequester: FocusRequester,
     @StringRes labelRes: Int,
     @StringRes suffixRes: Int,
     imeAction: ImeAction,
@@ -171,7 +173,6 @@ private fun NutrientField(
         },
         modifier = modifier
             .width(IntrinsicSize.Min)
-            .focusRequester(focusRequester)
             .onFocusChanged { focusState ->
                 textFieldState.onFocusChange(focusState.isFocused)
                 if (!focusState.isFocused) {

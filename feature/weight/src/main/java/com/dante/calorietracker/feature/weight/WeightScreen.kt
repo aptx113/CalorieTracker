@@ -16,8 +16,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -64,8 +67,12 @@ internal fun WeightScreen(
     val weightIsEmptyMessage = stringResource(id = R.string.error_weight_cant_be_empty)
     val confirmTest = stringResource(id = R.string.confirm)
     val snackBarDelegate = LocalSnackBarDelegate.current
+    val focusRequester = remember {
+        FocusRequester()
+    }
 
     LaunchedEffect(shouldDisplayWeightNotFilled) {
+        focusRequester.requestFocus()
         if (shouldDisplayWeightNotFilled) {
             val snackBarResult = snackBarDelegate.showSnackBarAsync(
                 message = weightIsEmptyMessage,
@@ -107,7 +114,9 @@ internal fun WeightScreen(
                 keyboardActions = KeyboardActions(onDone = {
                     onNextClick()
                 }),
-                modifier = Modifier.testTag(WEIGHT_TEXT_FIELD)
+                modifier = Modifier
+                    .testTag(WEIGHT_TEXT_FIELD)
+                    .focusRequester(focusRequester)
             )
         }
         CalorieTrackerButton(
