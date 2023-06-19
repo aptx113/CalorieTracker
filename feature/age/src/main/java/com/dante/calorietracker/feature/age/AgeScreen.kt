@@ -16,8 +16,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -65,8 +68,10 @@ internal fun AgeScreen(
     val ageIsEmptyMessage = stringResource(id = R.string.error_age_cant_be_empty)
     val confirmTest = stringResource(id = R.string.confirm)
     val snackBarDelegate = LocalSnackBarDelegate.current
+    val focusRequester = remember { FocusRequester() }
 
     LaunchedEffect(shouldDisplayAgeNotFilled) {
+        focusRequester.requestFocus()
         if (shouldDisplayAgeNotFilled) {
             val snackBarResult = snackBarDelegate.showSnackBarAsync(
                 message = ageIsEmptyMessage,
@@ -111,6 +116,7 @@ internal fun AgeScreen(
                 }),
                 modifier = Modifier
                     .testTag("ageTextField")
+                    .focusRequester(focusRequester)
             )
         }
         CalorieTrackerButton(
