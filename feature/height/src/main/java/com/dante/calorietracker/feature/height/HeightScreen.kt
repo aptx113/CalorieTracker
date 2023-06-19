@@ -18,6 +18,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -63,8 +65,10 @@ internal fun HeightScreen(
     val heightIsEmptyMessage = stringResource(id = R.string.error_height_cant_be_empty)
     val confirmTest = stringResource(id = R.string.confirm)
     val snackBarDelegate = LocalSnackBarDelegate.current
+    val focusRequester = FocusRequester()
 
     LaunchedEffect(shouldDisplayHeightNotFilled) {
+        focusRequester.requestFocus()
         if (shouldDisplayHeightNotFilled) {
             val snackBarResult = snackBarDelegate.showSnackBarAsync(
                 message = heightIsEmptyMessage,
@@ -107,7 +111,9 @@ internal fun HeightScreen(
                 keyboardActions = KeyboardActions(onDone = {
                     onNavigated()
                 }),
-                modifier = Modifier.testTag(HEIGHT_TEXT_FIELD)
+                modifier = Modifier
+                    .testTag(HEIGHT_TEXT_FIELD)
+                    .focusRequester(focusRequester)
             )
         }
         CalorieTrackerButton(
