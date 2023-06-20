@@ -8,11 +8,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -38,17 +38,43 @@ fun CalorieTrackerButton(
 @Composable
 fun CalorieTrackerOutlinedButton(
     onClick: () -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     enabled: Boolean = true,
-    color: Color = MaterialTheme.colorScheme.primary,
-    text: @Composable () -> Unit,
-    leadingIcon: @Composable (() -> Unit)? = null
+    contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
+    content: @Composable RowScope.() -> Unit
 ) {
     OutlinedButton(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
-        border = BorderStroke(width = 1.dp, color = color),
+        colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.onBackground),
+        border = BorderStroke(
+            width = 1.dp,
+            color = if (enabled) {
+                MaterialTheme.colorScheme.outline
+            } else {
+                MaterialTheme.colorScheme.onSurface.copy(
+                    alpha = 0.12f
+                )
+            }
+        ),
+        contentPadding = contentPadding,
+        content = content
+    )
+}
+
+@Composable
+fun CalorieTrackerOutlinedButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    text: @Composable () -> Unit,
+    leadingIcon: @Composable (() -> Unit)? = null
+) {
+    CalorieTrackerOutlinedButton(
+        onClick = onClick,
+        modifier = modifier,
+        enabled = enabled,
         contentPadding = if (leadingIcon != null) {
             ButtonDefaults.ButtonWithIconContentPadding
         } else {
@@ -56,6 +82,18 @@ fun CalorieTrackerOutlinedButton(
         }
     ) {
         CalorieTrackerButtonContent(text, leadingIcon)
+    }
+}
+
+@Composable
+fun CalorieTrackerIconButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    icon: @Composable () -> Unit
+) {
+    IconButton(onClick = onClick, enabled = enabled, modifier = modifier) {
+        icon()
     }
 }
 

@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -15,6 +16,7 @@ object CalorieTrackerIcons {
     val ArrowDown = Icons.Default.KeyboardArrowDown
     val ArrowForward = Icons.Default.ArrowForward
     val ArrowUp = Icons.Default.KeyboardArrowUp
+    val Close = Icons.Default.Close
 }
 
 sealed class Icon {
