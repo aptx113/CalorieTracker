@@ -59,7 +59,7 @@ class TrackerMapper {
             "https://static.openfoodfacts.org/images/products/541/118/811/0485/front_fr.3.400.jpg",
             trackedFood.imageUrl
         )
-        assertEquals(0, trackedFood.calorie)
+        assertEquals(0, trackedFood.calories)
         assertEquals(0, trackedFood.carbs)
         assertEquals(0, trackedFood.protein)
         assertEquals(0, trackedFood.fat)
@@ -76,7 +76,7 @@ class TrackerMapper {
             id = 1,
             name = "Coca Cola",
             imageUrl = "https://static.openfoodfacts.org/images/products/541/118/811/0485/front_fr.3.400.jpg",
-            calorie = 0,
+            calories = 0,
             carbs = 0,
             protein = 0,
             fat = 0,

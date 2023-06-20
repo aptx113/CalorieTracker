@@ -14,7 +14,7 @@ fun TrackedFoodEntity.asTrackedFood(): TrackedFood = TrackedFood(
     mealType = type.asMealType(),
     amount = amount,
     date = LocalDate(year, month, dayOfMonth),
-    calorie = calories,
+    calories = calories,
     id = id
 )
 
@@ -29,6 +29,6 @@ fun TrackedFood.asTrackedFoodEntity(): TrackedFoodEntity = TrackedFoodEntity(
     dayOfMonth = date.dayOfMonth,
     month = date.monthNumber,
     year = date.year,
-    calories = calorie,
+    calories = calories,
     id = id
 )

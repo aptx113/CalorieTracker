@@ -58,7 +58,7 @@ class TrackerRepositoryTest {
             repository.insertTrackedFood(
                 TrackedFood(
                     name = "Pasta",
-                    calorie = 100,
+                    calories = 100,
                     carbs = 13,
                     fat = 2,
                     protein = 3,
@@ -75,7 +75,7 @@ class TrackerRepositoryTest {
     fun deleteTrackedFood_getFoodsForDate_returnEmptyList() = runTest {
         val item = TrackedFood(
             name = "Pasta",
-            calorie = 100,
+            calories = 100,
             carbs = 13,
             fat = 2,
             protein = 3,

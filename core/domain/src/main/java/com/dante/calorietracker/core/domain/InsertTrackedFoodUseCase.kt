@@ -22,7 +22,7 @@ class InsertTrackedFoodUseCase @Inject constructor(private val repository: Track
             carbs = ((trackableFood.carbsPer100g / 100f) * amount).roundToInt(),
             protein = ((trackableFood.proteinPer100g / 100f) * amount).roundToInt(),
             fat = ((trackableFood.fatPer100g / 100f) * amount).roundToInt(),
-            calorie = ((trackableFood.caloriePer100g / 100f) * amount).roundToInt(),
+            calories = ((trackableFood.caloriePer100g / 100f) * amount).roundToInt(),
             imageUrl = trackableFood.imageUrl,
             amount = amount,
             mealType = mealType,
