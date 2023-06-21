@@ -1,6 +1,7 @@
 package com.dante.calorietracker.feature.tracker
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -56,59 +57,66 @@ internal fun TrackerOverviewScreen(
     onAddFoodClick: (Meal, (String) -> Unit) -> Unit
 ) {
     val spacing = LocalDimens.current
-
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(bottom = spacing.space16)
-    ) {
-        item {
-            NutrientsHeader(state = trackerState)
-            Spacer(modifier = Modifier.height(spacing.space16))
-            DaySelector(
-                date = trackerState.date,
-                onPreviousDayClick = onPreviousDayClick,
-                onNextDayClick = onNextDayClick,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = spacing.space16)
-            )
-            Spacer(modifier = Modifier.height(spacing.space16))
-        }
-        items(trackerState.meals) { meal ->
-            ExpandableMeal(
-                meal = meal,
-                onToggleClick = onToggleClick,
-                content = {
-                    LazyColumn(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = spacing.space8),
-                        verticalArrangement = Arrangement.spacedBy(spacing.space16)
-                    ) {
-                        items(trackerState.trackedFoods) { food ->
-                            TrackedFoodItem(
-                                trackedFood = food,
-                                onDeleteClick = { onDeleteClick(food) }
-                            )
+    Column(modifier = Modifier.fillMaxSize()) {
+        NutrientsHeader(state = trackerState)
+        Spacer(modifier = Modifier.height(spacing.space16))
+        DaySelector(
+            date = trackerState.date,
+            onPreviousDayClick = onPreviousDayClick,
+            onNextDayClick = onNextDayClick,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = spacing.space16)
+        )
+        Spacer(modifier = Modifier.height(spacing.space16))
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = spacing.space16)
+        ) {
+            items(trackerState.meals) { meal ->
+                ExpandableMeal(
+                    meal = meal,
+                    onToggleClick = onToggleClick,
+                    content = {
+                        LazyColumn(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = spacing.space8),
+                            verticalArrangement = Arrangement.spacedBy(spacing.space16)
+                        ) {
+                            items(trackerState.trackedFoods) { food ->
+                                TrackedFoodItem(
+                                    trackedFood = food,
+                                    onDeleteClick = { onDeleteClick(food) }
+                                )
+                            }
                         }
-                    }
-                    CalorieTrackerOutlinedButton(
-                        onClick = { onAddFoodClick(meal) { onNavigated(it) } },
-                        text = { Text(text = stringResource(id = R.string.add_meal, meal.name)) },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = CalorieTrackerIcons.Add,
-                                contentDescription = stringResource(id = R.string.add)
-                            )
-                        },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                },
-                modifier = Modifier.fillMaxWidth()
-            )
+                        CalorieTrackerOutlinedButton(
+                            onClick = { onAddFoodClick(meal) { onNavigated(it) } },
+                            text = {
+                                Text(
+                                    text = stringResource(
+                                        id = R.string.add_meal,
+                                        meal.name
+                                    )
+                                )
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = CalorieTrackerIcons.Add,
+                                    contentDescription = stringResource(id = R.string.add)
+                                )
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
         }
     }
+
 }
 
 @ThemePreviews

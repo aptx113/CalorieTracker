@@ -15,13 +15,13 @@ import com.dante.calorietracker.feature.height.navigation.heightScreen
 import com.dante.calorietracker.feature.height.navigation.navigateToHeight
 import com.dante.calorietracker.feature.nutrientGoal.navigation.navigateToNutrientGoal
 import com.dante.calorietracker.feature.nutrientGoal.navigation.nutrientGoalScreen
+import com.dante.calorietracker.feature.search.navigation.SearchArgs
 import com.dante.calorietracker.feature.search.navigation.navigateToSearch
 import com.dante.calorietracker.feature.search.navigation.searchScreen
 import com.dante.calorietracker.feature.tracker.navigation.navigateToTracker
 import com.dante.calorietracker.feature.tracker.navigation.trackerScreen
 import com.dante.calorietracker.feature.weight.navigation.navigateToWeight
 import com.dante.calorietracker.feature.weight.navigation.weightScreen
-import com.dante.calorietracker.feature.welcome.navigation.welcomeRoute
 import com.dante.calorietracker.feature.welcome.navigation.welcomeScreen
 import com.dante.calorietracker.ui.CalorieTrackerAppState
 
@@ -29,7 +29,7 @@ import com.dante.calorietracker.ui.CalorieTrackerAppState
 fun CalorieTrackerNavHost(
     appState: CalorieTrackerAppState,
     modifier: Modifier = Modifier,
-    startDestination: String = welcomeRoute
+    startDestination: String
 ) {
     val navController = appState.navController
     NavHost(
@@ -44,8 +44,17 @@ fun CalorieTrackerNavHost(
         goalScreen(onNavigated = { navController.navigateToNutrientGoal() })
         heightScreen { navController.navigateToWeight() }
         nutrientGoalScreen { navController.navigateToTracker() }
-        searchScreen()
-        trackerScreen(onNavigated = {navController.navigateToSearch()})
+        searchScreen(onBackClick = { navController.popBackStack() })
+        trackerScreen(onNavigated = {
+            navController.navigateToSearch(
+                searchArg = SearchArgs(
+                    "",
+                    0,
+                    0,
+                    0
+                )
+            )
+        })
         weightScreen(onNavigated = { navController.navigateToActivity() })
     }
 }

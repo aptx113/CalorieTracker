@@ -1,5 +1,6 @@
 package com.dante.calorietracker.ui
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
@@ -15,9 +16,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -26,21 +28,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavDestination
-import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.compose.currentBackStackEntryAsState
+import com.dante.calorietracker.core.data.repository.UserDataRepository
 import com.dante.calorietracker.core.ui.component.Background
 import com.dante.calorietracker.core.ui.delegate.LocalSnackBarDelegate
 import com.dante.calorietracker.core.ui.delegate.SnackBarDelegateImpl
+import com.dante.calorietracker.feature.tracker.navigation.trackerRoute
 import com.dante.calorietracker.navigation.CalorieTrackerNavHost
-import com.dante.calorietracker.navigation.TopLevelDestination
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalComposeUiApi::class)
 @Composable
 fun CalorieTrackerApp(
-    windowSizeClass: WindowSizeClass,
+    userDataRepository: UserDataRepository,
     appState: CalorieTrackerAppState = rememberCalorieTrackerAppState(
-        windowSizeClass = windowSizeClass
+        userDataRepository = userDataRepository
     )
 ) {
     val snackBarHostState = remember {
@@ -51,6 +55,21 @@ fun CalorieTrackerApp(
         coroutineScope = rememberCoroutineScope()
     )
     Background {
+        val startRoute by appState.startDestinationRoute.collectAsStateWithLifecycle()
+        val systemUiController = rememberSystemUiController()
+        val useDarkIcons = !isSystemInDarkTheme()
+        val navBackStackEntry by appState.navController.currentBackStackEntryAsState()
+        val statusBarColor = if (navBackStackEntry?.destination?.route == trackerRoute) {
+            MaterialTheme.colorScheme.primary
+        } else Color.Transparent
+
+        DisposableEffect(systemUiController, useDarkIcons) {
+            systemUiController.setStatusBarColor(
+                color = statusBarColor,
+                darkIcons = useDarkIcons
+            )
+            onDispose { }
+        }
         Scaffold(
             modifier = Modifier.semantics {
                 testTagsAsResourceId = true
@@ -58,6 +77,7 @@ fun CalorieTrackerApp(
             snackbarHost = { SnackbarHost(hostState = snackBarHostState) },
             containerColor = Color.Transparent,
             contentColor = MaterialTheme.colorScheme.onBackground,
+            contentWindowInsets = WindowInsets(top = 0.dp) ,
         ) { padding ->
             Row(
                 Modifier
@@ -76,15 +96,10 @@ fun CalorieTrackerApp(
                         .padding(bottom = 16.dp)
                 ) {
                     CompositionLocalProvider(LocalSnackBarDelegate provides defaultSnackBarDelegateImpl) {
-                        CalorieTrackerNavHost(appState)
+                        CalorieTrackerNavHost(appState, startDestination = startRoute)
                     }
                 }
             }
         }
     }
 }
-
-private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLevelDestination) =
-    this?.hierarchy?.any {
-        it.route?.contains(destination.name, true) ?: false
-    } ?: false

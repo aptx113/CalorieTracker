@@ -1,12 +1,15 @@
 package com.dante.calorietracker.feature.search
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -14,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
@@ -24,6 +28,8 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.dante.calorietracker.core.ui.R
 import com.dante.calorietracker.core.ui.component.CalorieTrackerIconButton
 import com.dante.calorietracker.core.ui.component.ThemePreviews
@@ -31,6 +37,21 @@ import com.dante.calorietracker.core.ui.icon.CalorieTrackerIcons
 import com.dante.calorietracker.core.ui.icon.CalorieTrackerIcons.ArrowBack
 import com.dante.calorietracker.core.ui.theme.CalorieTrackerTheme
 import com.dante.calorietracker.core.ui.unit.LocalDimens
+
+@Composable
+internal fun SearchRoute(onNavigate: () -> Unit, viewModel: SearchViewModel = hiltViewModel()) {
+
+}
+
+@Composable
+internal fun SearchScreen(
+    modifier: Modifier = Modifier,
+    searchResultUiState: SearchResultUiState = SearchResultUiState.Loading
+) {
+    Column(modifier = modifier.fillMaxSize()) {
+        Text(text = stringResource(id = R.string.add_meal))
+    }
+}
 
 @Composable
 private fun SearchToolbar(
@@ -87,6 +108,9 @@ private fun SearchTextField(
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent
         ),
+        label = {
+            Text(text = stringResource(id = R.string.search))
+        },
         leadingIcon = {
             Icon(
                 imageVector = CalorieTrackerIcons.Search,
@@ -111,6 +135,7 @@ private fun SearchTextField(
         modifier = Modifier
             .fillMaxWidth()
             .padding(dimens.space16)
+            .shadow(elevation = 2.dp, shape = RoundedCornerShape(dimens.space16))
             .focusRequester(focusRequester)
             .onKeyEvent {
                 if (it.key == Key.Enter) {

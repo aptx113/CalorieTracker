@@ -36,7 +36,7 @@ class TrackerOverviewViewModel @Inject constructor(
     private var getFoodsForDateJob: Job? = null
 
     fun onAddFoodClick(meal: Meal, searchAction: (String) -> Unit) {
-        searchAction("${meal.mealType.name}/${state.date.dayOfMonth}/${state.date.month}/${state.date.year}")
+        searchAction("${meal.mealType.name}/${state.date.dayOfMonth}/${state.date.month.value}/${state.date.year}")
     }
 
     fun onDeleteTrackedFoodClick(trackedFood: TrackedFood) = viewModelScope.launch {
