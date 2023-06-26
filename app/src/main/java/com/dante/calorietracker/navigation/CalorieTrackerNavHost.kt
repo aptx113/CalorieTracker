@@ -15,7 +15,6 @@ import com.dante.calorietracker.feature.height.navigation.heightScreen
 import com.dante.calorietracker.feature.height.navigation.navigateToHeight
 import com.dante.calorietracker.feature.nutrientGoal.navigation.navigateToNutrientGoal
 import com.dante.calorietracker.feature.nutrientGoal.navigation.nutrientGoalScreen
-import com.dante.calorietracker.feature.search.navigation.SearchArgs
 import com.dante.calorietracker.feature.search.navigation.navigateToSearch
 import com.dante.calorietracker.feature.search.navigation.searchScreen
 import com.dante.calorietracker.feature.tracker.navigation.navigateToTracker
@@ -47,12 +46,7 @@ fun CalorieTrackerNavHost(
         searchScreen(onBackClick = { navController.popBackStack() })
         trackerScreen(onNavigated = {
             navController.navigateToSearch(
-                searchArg = SearchArgs(
-                    "",
-                    0,
-                    0,
-                    0
-                )
+                searchArg = it
             )
         })
         weightScreen(onNavigated = { navController.navigateToActivity() })

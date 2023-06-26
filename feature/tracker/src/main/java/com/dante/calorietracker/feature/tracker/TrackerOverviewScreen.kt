@@ -1,6 +1,5 @@
 package com.dante.calorietracker.feature.tracker
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.dante.calorietracker.core.model.SearchArgs
 import com.dante.calorietracker.core.model.TrackedFood
 import com.dante.calorietracker.core.ui.R
 import com.dante.calorietracker.core.ui.component.Background
@@ -32,7 +32,7 @@ import com.dante.calorietracker.feature.tracker.model.TrackerOverviewState
 
 @Composable
 internal fun TrackerOverviewRoute(
-    onNavigated: (String) -> Unit,
+    onNavigated: (SearchArgs) -> Unit,
     viewModel: TrackerOverviewViewModel = hiltViewModel()
 ) {
     TrackerOverviewScreen(
@@ -49,12 +49,12 @@ internal fun TrackerOverviewRoute(
 @Composable
 internal fun TrackerOverviewScreen(
     trackerState: TrackerOverviewState,
-    onNavigated: (String) -> Unit,
+    onNavigated: (SearchArgs) -> Unit,
     onPreviousDayClick: () -> Unit,
     onNextDayClick: () -> Unit,
     onToggleClick: (Meal) -> Unit,
     onDeleteClick: (TrackedFood) -> Unit,
-    onAddFoodClick: (Meal, (String) -> Unit) -> Unit
+    onAddFoodClick: (Meal, (SearchArgs) -> Unit) -> Unit
 ) {
     val spacing = LocalDimens.current
     Column(modifier = Modifier.fillMaxSize()) {
@@ -79,37 +79,37 @@ internal fun TrackerOverviewScreen(
                     meal = meal,
                     onToggleClick = onToggleClick,
                     content = {
-                        LazyColumn(
+                        Column(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = spacing.space8),
-                            verticalArrangement = Arrangement.spacedBy(spacing.space16)
+                                .padding(horizontal = spacing.space8)
                         ) {
-                            items(trackerState.trackedFoods) { food ->
+                            trackerState.trackedFoods.forEach { food ->
                                 TrackedFoodItem(
                                     trackedFood = food,
                                     onDeleteClick = { onDeleteClick(food) }
                                 )
+                                Spacer(modifier = Modifier.height(spacing.space16))
                             }
-                        }
-                        CalorieTrackerOutlinedButton(
-                            onClick = { onAddFoodClick(meal) { onNavigated(it) } },
-                            text = {
-                                Text(
-                                    text = stringResource(
-                                        id = R.string.add_meal,
-                                        meal.name
+                            CalorieTrackerOutlinedButton(
+                                onClick = { onAddFoodClick(meal) { onNavigated(it) } },
+                                text = {
+                                    Text(
+                                        text = stringResource(
+                                            id = R.string.add_meal,
+                                            meal.name
+                                        )
                                     )
-                                )
-                            },
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = CalorieTrackerIcons.Add,
-                                    contentDescription = stringResource(id = R.string.add)
-                                )
-                            },
-                            modifier = Modifier.fillMaxWidth()
-                        )
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = CalorieTrackerIcons.Add,
+                                        contentDescription = stringResource(id = R.string.add)
+                                    )
+                                },
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
                     },
                     modifier = Modifier.fillMaxWidth()
                 )

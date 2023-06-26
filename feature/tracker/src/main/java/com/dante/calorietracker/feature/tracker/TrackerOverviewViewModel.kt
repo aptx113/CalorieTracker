@@ -9,6 +9,8 @@ import com.dante.calorietracker.core.data.repository.UserDataRepository
 import com.dante.calorietracker.core.domain.CalculateMealNutrientsUseCase
 import com.dante.calorietracker.core.domain.DeleteTrackedFoodUseCase
 import com.dante.calorietracker.core.domain.GetFoodsForDateUseCase
+import com.dante.calorietracker.core.model.MealType
+import com.dante.calorietracker.core.model.SearchArgs
 import com.dante.calorietracker.core.model.TrackedFood
 import com.dante.calorietracker.feature.tracker.model.Meal
 import com.dante.calorietracker.feature.tracker.model.TrackerOverviewState
@@ -35,8 +37,15 @@ class TrackerOverviewViewModel @Inject constructor(
 
     private var getFoodsForDateJob: Job? = null
 
-    fun onAddFoodClick(meal: Meal, searchAction: (String) -> Unit) {
-        searchAction("${meal.mealType.name}/${state.date.dayOfMonth}/${state.date.month.value}/${state.date.year}")
+    fun onAddFoodClick(meal: Meal, searchAction: (SearchArgs) -> Unit) {
+        searchAction(
+            SearchArgs(
+                mealType = meal.mealType.name,
+                dayOfMonth = state.date.dayOfMonth,
+                month = state.date.month.value,
+                year = state.date.year
+            )
+        )
     }
 
     fun onDeleteTrackedFoodClick(trackedFood: TrackedFood) = viewModelScope.launch {

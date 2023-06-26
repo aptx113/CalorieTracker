@@ -6,6 +6,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.dante.calorietracker.core.model.SearchArgs
 
 const val mealType = "mealType"
 const val dayOfMonth = "day"
@@ -13,12 +14,6 @@ const val month = "month"
 const val year = "year"
 const val searchRoute = "search_route"
 
-data class SearchArgs(
-    val mealType: String,
-    val dayOfMonth: Int,
-    val month: Int,
-    val year: Int
-)
 
 fun NavController.navigateToSearch(searchArg: SearchArgs, navOptions: NavOptions? = null) =
     this.navigate(
