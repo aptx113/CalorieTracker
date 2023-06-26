@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.dante.calorietracker.core.data.repository.UserDataRepository
+import com.dante.calorietracker.feature.tracker.navigation.trackerGraphRoutePattern
 import com.dante.calorietracker.feature.tracker.navigation.trackerRoute
 import com.dante.calorietracker.feature.welcome.navigation.welcomeRoute
 import kotlinx.coroutines.CoroutineScope
@@ -39,7 +40,7 @@ class CalorieTrackerAppState(
 
     val startDestinationRoute: StateFlow<String> = userDataRepository.userInfo.map {
         if (it.carbRatio != 0f && it.proteinRatio != 0f && it.fatRatio != 0f) {
-            trackerRoute
+            trackerGraphRoutePattern
         } else {
             welcomeRoute
         }

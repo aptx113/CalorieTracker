@@ -7,17 +7,19 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.dante.calorietracker.core.model.SearchArgs
+import com.dante.calorietracker.feature.search.SearchRoute
 
 const val mealType = "mealType"
 const val dayOfMonth = "day"
 const val month = "month"
 const val year = "year"
 const val searchRoute = "search_route"
+const val searchArgs = "searchArgs"
 
 
-fun NavController.navigateToSearch(searchArg: SearchArgs, navOptions: NavOptions? = null) =
+fun NavController.navigateToSearch(searchArgs: SearchArgs, navOptions: NavOptions? = null) =
     this.navigate(
-        "$searchRoute/${searchArg.mealType}/${searchArg.dayOfMonth}/${searchArg.month}/${searchArg.year}",
+        "$searchRoute/${searchArgs.mealType}/${searchArgs.dayOfMonth}/${searchArgs.month}/${searchArgs.year}",
         navOptions
     )
 
@@ -31,5 +33,13 @@ fun NavGraphBuilder.searchScreen(onBackClick: () -> Unit) {
             navArgument(year) { type = NavType.IntType }
         )
     ) {
+        val mealType = checkNotNull(it.arguments?.getString(mealType))
+        val dayOfMonth = checkNotNull(it.arguments?.getInt(dayOfMonth))
+        val month = checkNotNull(it.arguments?.getInt(month))
+        val year = checkNotNull(it.arguments?.getInt(year))
+        SearchRoute(
+            searchArgs = SearchArgs(mealType, dayOfMonth, month, year),
+            onBackClick = onBackClick
+        )
     }
 }

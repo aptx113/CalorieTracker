@@ -1,7 +1,6 @@
 package com.dante.calorietracker.feature.search
 
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
@@ -13,7 +12,8 @@ import com.dante.calorietracker.core.domain.FilterOutDigitsUseCase
 import com.dante.calorietracker.core.domain.InsertTrackedFoodUseCase
 import com.dante.calorietracker.core.domain.SearchFoodUseCase
 import com.dante.calorietracker.core.ext.mapOrReplace
-import com.dante.calorietracker.core.model.MealType
+import com.dante.calorietracker.core.model.SearchArgs
+import com.dante.calorietracker.core.model.asMealType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -24,6 +24,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.Month
 import javax.inject.Inject
 
 @HiltViewModel
@@ -80,10 +81,27 @@ class SearchViewModel @Inject constructor(
             _trackableFoodUiStates.value.mapOrReplace(trackerFoodUiState, newState)
     }
 
-    fun onSearch() = viewModelScope.launch {
-        state = state.copy(isSearching = true, trackableFoodList = emptyList())
-        searchFoodUseCase(state.query).asApiResult().collect {
+    fun onSearchTriggered(query: String) = viewModelScope.launch {
+        searchFoodUseCase(query).asApiResult().collect {
+            when (it) {
+                is ApiResult.Success -> {
+                    val states = it.data.map { food ->
+                        TrackableFoodUiState(
+                            food
+                        )
+                    }
+                    _trackableFoodUiStates.value = states
+                    SearchResultUiState.Success(trackableFoodUiStates = states)
+                }
 
+                is ApiResult.Loading -> {
+                    SearchResultUiState.Loading
+                }
+
+                is ApiResult.Error -> {
+                    SearchResultUiState.LoadFailed
+                }
+            }
         }
     }
 
@@ -99,16 +117,19 @@ class SearchViewModel @Inject constructor(
 
     fun onTrackFoodClick(
         trackerFoodUiState: TrackableFoodUiState,
-        mealType: MealType,
-        date: LocalDate
+        searchArgs: SearchArgs
     ) =
         viewModelScope.launch {
 //            val uiState = state.trackableFoodList.find { it.food == food }
             insertTrackedFoodUseCase(
                 trackableFood = trackerFoodUiState.food,
                 amount = trackerFoodUiState.amount.toIntOrNull() ?: return@launch,
-                mealType = mealType,
-                date = date
+                mealType = searchArgs.mealType.asMealType(),
+                date = LocalDate(
+                    dayOfMonth = searchArgs.dayOfMonth,
+                    month = Month(searchArgs.month),
+                    year = searchArgs.year
+                )
             )
         }
 }

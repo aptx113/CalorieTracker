@@ -9,7 +9,6 @@ import com.dante.calorietracker.core.data.repository.UserDataRepository
 import com.dante.calorietracker.core.domain.CalculateMealNutrientsUseCase
 import com.dante.calorietracker.core.domain.DeleteTrackedFoodUseCase
 import com.dante.calorietracker.core.domain.GetFoodsForDateUseCase
-import com.dante.calorietracker.core.model.MealType
 import com.dante.calorietracker.core.model.SearchArgs
 import com.dante.calorietracker.core.model.TrackedFood
 import com.dante.calorietracker.feature.tracker.model.Meal

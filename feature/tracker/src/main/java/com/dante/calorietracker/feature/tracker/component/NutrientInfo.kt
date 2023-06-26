@@ -11,7 +11,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
-import com.dante.calorietracker.core.ui.unit.LocalDimens
 
 @Composable
 fun NutrientInfo(
@@ -25,7 +24,6 @@ fun NutrientInfo(
     unitColor: Color = MaterialTheme.colorScheme.onBackground,
     nameTextStyle: TextStyle = MaterialTheme.typography.bodyLarge,
 ) {
-    val spacing = LocalDimens.current
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         UnitDisplay(
             amount = amount,

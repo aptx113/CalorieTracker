@@ -18,7 +18,7 @@ import com.dante.calorietracker.feature.nutrientGoal.navigation.nutrientGoalScre
 import com.dante.calorietracker.feature.search.navigation.navigateToSearch
 import com.dante.calorietracker.feature.search.navigation.searchScreen
 import com.dante.calorietracker.feature.tracker.navigation.navigateToTracker
-import com.dante.calorietracker.feature.tracker.navigation.trackerScreen
+import com.dante.calorietracker.feature.tracker.navigation.trackerGraph
 import com.dante.calorietracker.feature.weight.navigation.navigateToWeight
 import com.dante.calorietracker.feature.weight.navigation.weightScreen
 import com.dante.calorietracker.feature.welcome.navigation.welcomeScreen
@@ -38,17 +38,20 @@ fun CalorieTrackerNavHost(
     ) {
         welcomeScreen { navController.navigateToGender() }
         activityScreen { navController.navigateToGoal() }
-        ageScreen(onNextClick = { navController.navigateToHeight() })
-        genderScreen(onNextClick = { navController.navigateToAge() })
-        goalScreen(onNavigated = { navController.navigateToNutrientGoal() })
+        ageScreen(onNextClick = { navController.navigateToHeight() }
+        )
+        genderScreen(onNextClick = { navController.navigateToAge() }
+        )
+        goalScreen(onNavigated = { navController.navigateToNutrientGoal() }
+        )
         heightScreen { navController.navigateToWeight() }
         nutrientGoalScreen { navController.navigateToTracker() }
-        searchScreen(onBackClick = { navController.popBackStack() })
-        trackerScreen(onNavigated = {
-            navController.navigateToSearch(
-                searchArg = it
-            )
-        })
+        trackerGraph(
+            onAddMealClick = { searchArgs -> navController.navigateToSearch(searchArgs = searchArgs) },
+            nestedGraphs = {
+                searchScreen(onBackClick = { navController.popBackStack() })
+            }
+        )
         weightScreen(onNavigated = { navController.navigateToActivity() })
     }
 }

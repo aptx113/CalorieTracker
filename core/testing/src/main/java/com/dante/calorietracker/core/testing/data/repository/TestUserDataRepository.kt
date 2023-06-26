@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.filterNotNull
 
 val emptyUserInfo = UserInfo(
-    gender = Gender.Other,
+    gender = Gender.Male,
     age = 0,
     height = 0,
     weight = 0f,
@@ -65,5 +65,12 @@ class TestUserDataRepository : UserDataRepository {
 
     override suspend fun saveFatRatio(fatRatio: Float) {
         _userInfo.tryEmit(currentUserInfo.copy(fatRatio = fatRatio))
+    }
+
+    override val shouldShowOnboard: Flow<Boolean>
+        get() = TODO("Not yet implemented")
+
+    override suspend fun saveShouldShowOnboard(shouldShowOnboard: Boolean) {
+        TODO("Not yet implemented")
     }
 }
