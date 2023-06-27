@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -44,24 +45,28 @@ class SearchViewModel @Inject constructor(
     val searchQuery = savedStateHandle.getStateFlow(SEARCH_QUERY, "")
 
     val searchResultUiState: StateFlow<SearchResultUiState> = searchQuery.flatMapLatest { query ->
-        searchFoodUseCase(query).asApiResult().map {
-            when (it) {
-                is ApiResult.Success -> {
-                    val states = it.data.map { food ->
-                        TrackableFoodUiState(
-                            food
-                        )
+        if (query.length < SEARCH_QUERY_MIN_LENGTH) {
+            flowOf(SearchResultUiState.SearchNotReady)
+        } else {
+            searchFoodUseCase(query).asApiResult().map {
+                when (it) {
+                    is ApiResult.Success -> {
+                        val states = it.data.map { food ->
+                            TrackableFoodUiState(
+                                food
+                            )
+                        }
+                        _trackableFoodUiStates.value = states
+                        SearchResultUiState.Success(trackableFoodUiStates = states)
                     }
-                    _trackableFoodUiStates.value = states
-                    SearchResultUiState.Success(trackableFoodUiStates = states)
-                }
 
-                is ApiResult.Loading -> {
-                    SearchResultUiState.Loading
-                }
+                    is ApiResult.Loading -> {
+                        SearchResultUiState.Loading
+                    }
 
-                is ApiResult.Error -> {
-                    SearchResultUiState.LoadFailed
+                    is ApiResult.Error -> {
+                        SearchResultUiState.LoadFailed
+                    }
                 }
             }
         }
@@ -135,3 +140,5 @@ class SearchViewModel @Inject constructor(
 }
 
 private const val SEARCH_QUERY = "searchQuery"
+private const val SEARCH_QUERY_MIN_LENGTH = 2
+

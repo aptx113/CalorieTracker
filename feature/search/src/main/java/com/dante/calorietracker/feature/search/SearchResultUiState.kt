@@ -12,4 +12,6 @@ sealed interface SearchResultUiState {
     ) : SearchResultUiState {
         fun isEmpty(): Boolean = trackableFoodUiStates.isEmpty()
     }
+
+    object SearchNotReady : SearchResultUiState
 }
