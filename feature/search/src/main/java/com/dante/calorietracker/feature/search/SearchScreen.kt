@@ -3,10 +3,13 @@ package com.dante.calorietracker.feature.search
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -71,27 +74,43 @@ internal fun SearchRoute(
 internal fun SearchScreen(
     modifier: Modifier = Modifier,
     searchResultUiState: SearchResultUiState = SearchResultUiState.Loading,
-    mealType: String,
-    dayOfMonth: Int,
-    month: Int,
-    year: Int,
+    mealType: String = "",
+    dayOfMonth: Int = 0,
+    month: Int = 0,
+    year: Int = 0,
     onBackClick: () -> Unit = {},
-    onSearchQueryChanged: (String) -> Unit,
-    searchQuery: String,
-    onSearchTriggered: (String) -> Unit
+    onSearchQueryChanged: (String) -> Unit = {},
+    searchQuery: String = "",
+    onSearchTriggered: (String) -> Unit = {}
 ) {
+
     val dimens = LocalDimens.current
-    Column(modifier = modifier.fillMaxSize()) {
-        Text(
-            text = stringResource(id = R.string.add_meal, mealType),
-            style = MaterialTheme.typography.titleMedium
-        )
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+    ) {
+        Spacer(modifier = Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = modifier.fillMaxWidth()
+        ) {
+            CalorieTrackerIconButton(onClick = onBackClick) {
+                Icon(
+                    imageVector = ArrowBack,
+                    contentDescription = stringResource(id = R.string.back)
+                )
+            }
+            Text(
+                text = stringResource(id = R.string.add_meal, mealType),
+                style = MaterialTheme.typography.titleLarge,
+            )
+        }
+
         Spacer(modifier = Modifier.height(dimens.space16))
-        SearchToolbar(
-            onBackClick = onBackClick,
+        SearchTextField(
             onSearchQueryChanged = onSearchQueryChanged,
-            onSearchTriggered = onSearchTriggered,
-            searchQuery = searchQuery
+            searchQuery = searchQuery,
+            onSearchTriggered = onSearchTriggered
         )
     }
 }
@@ -177,7 +196,7 @@ private fun SearchTextField(
         singleLine = true,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(dimens.space16)
+            .padding(horizontal = dimens.space16)
             .shadow(elevation = 2.dp, shape = RoundedCornerShape(dimens.space16))
             .focusRequester(focusRequester)
             .onKeyEvent {
@@ -201,5 +220,13 @@ fun SearchToolbarPrev() {
             onSearchQueryChanged = {},
             onSearchTriggered = {}
         )
+    }
+}
+
+@ThemePreviews
+@Composable
+fun SearchPrev() {
+    CalorieTrackerTheme {
+        SearchScreen()
     }
 }

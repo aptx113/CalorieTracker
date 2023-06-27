@@ -28,9 +28,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.dante.calorietracker.core.data.repository.UserDataRepository
+import com.dante.calorietracker.MainUiState
 import com.dante.calorietracker.core.ui.component.Background
 import com.dante.calorietracker.core.ui.delegate.LocalSnackBarDelegate
 import com.dante.calorietracker.core.ui.delegate.SnackBarDelegateImpl
@@ -42,10 +41,8 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 @OptIn(ExperimentalLayoutApi::class, ExperimentalComposeUiApi::class)
 @Composable
 fun CalorieTrackerApp(
-    userDataRepository: UserDataRepository,
-    appState: CalorieTrackerAppState = rememberCalorieTrackerAppState(
-        userDataRepository = userDataRepository
-    )
+    appState: CalorieTrackerAppState = rememberCalorieTrackerAppState(),
+    uiState: MainUiState
 ) {
     val snackBarHostState = remember {
         SnackbarHostState()
@@ -55,7 +52,6 @@ fun CalorieTrackerApp(
         coroutineScope = rememberCoroutineScope()
     )
     Background {
-        val startRoute by appState.startDestinationRoute.collectAsStateWithLifecycle()
         val systemUiController = rememberSystemUiController()
         val useDarkIcons = !isSystemInDarkTheme()
         val navBackStackEntry by appState.navController.currentBackStackEntryAsState()
@@ -77,7 +73,7 @@ fun CalorieTrackerApp(
             snackbarHost = { SnackbarHost(hostState = snackBarHostState) },
             containerColor = Color.Transparent,
             contentColor = MaterialTheme.colorScheme.onBackground,
-            contentWindowInsets = WindowInsets(top = 0.dp) ,
+            contentWindowInsets = WindowInsets(top = 0.dp),
         ) { padding ->
             Row(
                 Modifier
@@ -96,7 +92,9 @@ fun CalorieTrackerApp(
                         .padding(bottom = 16.dp)
                 ) {
                     CompositionLocalProvider(LocalSnackBarDelegate provides defaultSnackBarDelegateImpl) {
-                        CalorieTrackerNavHost(appState, startDestination = startRoute)
+                        if (uiState is MainUiState.StartDestination) {
+                            CalorieTrackerNavHost(appState, startDestination = uiState.destination)
+                        }
                     }
                 }
             }
