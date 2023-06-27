@@ -31,6 +31,7 @@ import coil.request.ImageRequest
 import com.dante.calorietracker.core.model.TrackedFood
 import com.dante.calorietracker.core.ui.R
 import com.dante.calorietracker.core.ui.component.CalorieTrackerIconButton
+import com.dante.calorietracker.core.ui.component.NutrientInfo
 import com.dante.calorietracker.core.ui.icon.CalorieTrackerIcons.Close
 import com.dante.calorietracker.core.ui.unit.LocalDimens
 

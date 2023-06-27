@@ -1,4 +1,4 @@
-package com.dante.calorietracker.feature.tracker.component
+package com.dante.calorietracker.core.ui.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme
