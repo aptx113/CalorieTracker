@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -42,7 +43,8 @@ internal fun TrackerOverviewRoute(
         onNextDayClick = viewModel::onNextDayClick,
         onToggleClick = viewModel::onToggleMealClick,
         onDeleteClick = viewModel::onDeleteTrackedFoodClick,
-        onAddFoodClick = viewModel::onAddFoodClick
+        onAddFoodClick = viewModel::onAddFoodClick,
+        onMealsRefresh = viewModel::refreshFoods
     )
 }
 
@@ -54,9 +56,14 @@ internal fun TrackerOverviewScreen(
     onNextDayClick: () -> Unit,
     onToggleClick: (Meal) -> Unit,
     onDeleteClick: (TrackedFood) -> Unit,
-    onAddFoodClick: (Meal, (SearchArgs) -> Unit) -> Unit
+    onAddFoodClick: (Meal, (SearchArgs) -> Unit) -> Unit,
+    onMealsRefresh: () -> Unit = {},
 ) {
     val spacing = LocalDimens.current
+
+    LaunchedEffect(trackerState.trackedFoods.size) {
+        onMealsRefresh()
+    }
     Column(modifier = Modifier.fillMaxSize()) {
         NutrientsHeader(state = trackerState)
         Spacer(modifier = Modifier.height(spacing.space16))
@@ -85,11 +92,13 @@ internal fun TrackerOverviewScreen(
                                 .padding(horizontal = spacing.space8)
                         ) {
                             trackerState.trackedFoods.forEach { food ->
-                                TrackedFoodItem(
-                                    trackedFood = food,
-                                    onDeleteClick = { onDeleteClick(food) }
-                                )
-                                Spacer(modifier = Modifier.height(spacing.space16))
+                                if (food.mealType.name == meal.name) {
+                                    TrackedFoodItem(
+                                        trackedFood = food,
+                                        onDeleteClick = { onDeleteClick(food) }
+                                    )
+                                    Spacer(modifier = Modifier.height(spacing.space16))
+                                }
                             }
                             CalorieTrackerOutlinedButton(
                                 onClick = { onAddFoodClick(meal) { onNavigated(it) } },

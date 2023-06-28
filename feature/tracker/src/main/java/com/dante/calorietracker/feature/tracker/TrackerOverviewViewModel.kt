@@ -36,6 +36,10 @@ class TrackerOverviewViewModel @Inject constructor(
 
     private var getFoodsForDateJob: Job? = null
 
+    init {
+        refreshFoods()
+    }
+
     fun onAddFoodClick(meal: Meal, searchAction: (SearchArgs) -> Unit) {
         searchAction(
             SearchArgs(
@@ -72,7 +76,7 @@ class TrackerOverviewViewModel @Inject constructor(
         )
     }
 
-    private fun refreshFoods() {
+    fun refreshFoods() {
         getFoodsForDateJob?.cancel()
         getFoodsForDateJob = viewModelScope.launch {
             getFoodsForDateUseCase(state.date).flatMapConcat { foods ->
@@ -109,4 +113,9 @@ class TrackerOverviewViewModel @Inject constructor(
             }
         }
     }
+}
+
+sealed interface TrackerOverviewUiState {
+    object Loading : TrackerOverviewUiState
+    data class Success(val state: TrackerOverviewState) : TrackerOverviewUiState
 }
