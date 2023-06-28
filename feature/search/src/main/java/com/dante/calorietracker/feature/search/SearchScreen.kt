@@ -61,6 +61,7 @@ import com.dante.calorietracker.feature.search.component.TrackableFoodItem
 internal fun SearchRoute(
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit,
+    onTrackNavigated: () -> Unit,
     searchArgs: SearchArgs,
     viewModel: SearchViewModel = hiltViewModel()
 ) {
@@ -74,6 +75,7 @@ internal fun SearchRoute(
         mealType = searchArgs.mealType,
         searchArgs = searchArgs,
         onBackClick = onBackClick,
+        onTrackNavigated = onTrackNavigated,
         onSearchQueryChanged = viewModel::onQueryChanged,
         searchQuery = searchQuery,
         onSearchTriggered = viewModel::onSearchTriggered,
@@ -91,12 +93,13 @@ internal fun SearchScreen(
     mealType: String = "",
     searchArgs: SearchArgs,
     onBackClick: () -> Unit = {},
+    onTrackNavigated: () -> Unit,
     onSearchQueryChanged: (String) -> Unit = {},
     searchQuery: String = "",
     onSearchTriggered: (String) -> Unit = {},
     onToggleTrackableFood: (trackerFoodUiState: TrackableFoodUiState, isExpanded: Boolean) -> Unit = { _, _ -> },
     onAmountChange: (trackerFoodUiState: TrackableFoodUiState, amount: String) -> Unit = { _, _ -> },
-    onTrack: (trackerFoodUiState: TrackableFoodUiState, searchArgs: SearchArgs) -> Unit = { _, _ -> },
+    onTrack: (trackerFoodUiState: TrackableFoodUiState, searchArgs: SearchArgs, () -> Unit) -> Unit = { _, _, _ -> },
 ) {
 
     val dimens = LocalDimens.current
@@ -151,7 +154,8 @@ internal fun SearchScreen(
                         dimensions = dimens,
                         onToggleTrackableFood = onToggleTrackableFood,
                         onAmountChange = onAmountChange,
-                        onTrack = onTrack
+                        onTrack = onTrack,
+                        onTrackNavigated = onTrackNavigated
                     )
                 }
             }
@@ -167,7 +171,8 @@ private fun SearchResultBody(
     dimensions: Dimensions,
     onToggleTrackableFood: (trackerFoodUiState: TrackableFoodUiState, isExpanded: Boolean) -> Unit,
     onAmountChange: (trackerFoodUiState: TrackableFoodUiState, amount: String) -> Unit,
-    onTrack: (trackerFoodUiState: TrackableFoodUiState, searchArgs: SearchArgs) -> Unit
+    onTrack: (trackerFoodUiState: TrackableFoodUiState, searchArgs: SearchArgs, () -> Unit) -> Unit,
+    onTrackNavigated: () -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier
@@ -182,7 +187,7 @@ private fun SearchResultBody(
                 trackableFoodUiState = state,
                 onClick = { onToggleTrackableFood(state, state.isExpanded) },
                 onAmountChange = { onAmountChange(state, it) },
-                onTrack = { onTrack(state, searchArgs) },
+                onTrack = { onTrack(state, searchArgs, onTrackNavigated) },
                 modifier = Modifier.fillMaxWidth()
             )
         }
@@ -270,7 +275,8 @@ fun SearchPrev() {
                 month = 6,
                 year = 2023
             ),
-            trackableFoodUiStates = listOf(TrackableFoodUiState(mockTrackableFood))
+            trackableFoodUiStates = listOf(TrackableFoodUiState(mockTrackableFood)),
+            onTrackNavigated = {}
         )
     }
 }

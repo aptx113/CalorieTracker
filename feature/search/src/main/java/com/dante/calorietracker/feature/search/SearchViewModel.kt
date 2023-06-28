@@ -112,7 +112,8 @@ class SearchViewModel @Inject constructor(
 
     fun onTrackFoodClick(
         trackerFoodUiState: TrackableFoodUiState,
-        searchArgs: SearchArgs
+        searchArgs: SearchArgs,
+        onTrackerOverviewNavigated: () -> Unit
     ) =
         viewModelScope.launch {
             insertTrackedFoodUseCase(
@@ -125,6 +126,7 @@ class SearchViewModel @Inject constructor(
                     year = searchArgs.year
                 )
             )
+            onTrackerOverviewNavigated()
         }
 }
 

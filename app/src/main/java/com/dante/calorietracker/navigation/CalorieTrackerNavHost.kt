@@ -3,6 +3,7 @@ package com.dante.calorietracker.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
+import androidx.navigation.navOptions
 import com.dante.calorietracker.feature.activity.navigation.activityScreen
 import com.dante.calorietracker.feature.activity.navigation.navigateToActivity
 import com.dante.calorietracker.feature.age.navigation.ageScreen
@@ -19,6 +20,7 @@ import com.dante.calorietracker.feature.search.navigation.navigateToSearch
 import com.dante.calorietracker.feature.search.navigation.searchScreen
 import com.dante.calorietracker.feature.tracker.navigation.navigateToTracker
 import com.dante.calorietracker.feature.tracker.navigation.trackerGraph
+import com.dante.calorietracker.feature.tracker.navigation.trackerGraphRoutePattern
 import com.dante.calorietracker.feature.weight.navigation.navigateToWeight
 import com.dante.calorietracker.feature.weight.navigation.weightScreen
 import com.dante.calorietracker.feature.welcome.navigation.welcomeScreen
@@ -49,7 +51,12 @@ fun CalorieTrackerNavHost(
         trackerGraph(
             onAddMealClick = { searchArgs -> navController.navigateToSearch(searchArgs = searchArgs) },
             nestedGraphs = {
-                searchScreen(onBackClick = { navController.popBackStack() })
+                searchScreen(onBackClick = { navController.popBackStack() }, onTrackNavigated = {
+                    navController.navigateToTracker(
+                        navOptions { popUpTo(trackerGraphRoutePattern) { inclusive = true } }
+                    )
+                }
+                )
             }
         )
         weightScreen(onNavigated = { navController.navigateToActivity() })

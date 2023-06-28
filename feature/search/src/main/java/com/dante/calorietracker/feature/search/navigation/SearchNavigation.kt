@@ -14,8 +14,6 @@ const val dayOfMonth = "day"
 const val month = "month"
 const val year = "year"
 const val searchRoute = "search_route"
-const val searchArgs = "searchArgs"
-
 
 fun NavController.navigateToSearch(searchArgs: SearchArgs, navOptions: NavOptions? = null) =
     this.navigate(
@@ -23,7 +21,7 @@ fun NavController.navigateToSearch(searchArgs: SearchArgs, navOptions: NavOption
         navOptions
     )
 
-fun NavGraphBuilder.searchScreen(onBackClick: () -> Unit) {
+fun NavGraphBuilder.searchScreen(onBackClick: () -> Unit, onTrackNavigated: () -> Unit) {
     composable(
         route = "$searchRoute/{$mealType}/{$dayOfMonth}/{$month}/{$year}",
         arguments = listOf(
@@ -39,7 +37,8 @@ fun NavGraphBuilder.searchScreen(onBackClick: () -> Unit) {
         val year = checkNotNull(it.arguments?.getInt(year))
         SearchRoute(
             searchArgs = SearchArgs(mealType, dayOfMonth, month, year),
-            onBackClick = onBackClick
+            onBackClick = onBackClick,
+            onTrackNavigated = onTrackNavigated
         )
     }
 }
