@@ -9,3 +9,7 @@ plugins {
 android {
     namespace = Config.searchNameSpace
 }
+
+dependencies {
+    implementation(libs.kotlinx.datetime)
+}

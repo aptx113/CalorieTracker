@@ -13,6 +13,7 @@ import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.composable
 import androidx.navigation.createGraph
 import androidx.navigation.testing.TestNavHostController
+import com.dante.calorietracker.core.testing.data.repository.TestUserDataRepository
 import kotlinx.coroutines.test.TestScope
 import org.junit.Rule
 import org.junit.Test
@@ -35,7 +36,7 @@ class CalorieTrackerAppStateTest {
                 CalorieTrackerAppState(
                     navController = navController,
                     coroutineScope = TestScope().backgroundScope,
-                    windowSizeClass = getCompactWindowSizeClass()
+                    userDataRepository = TestUserDataRepository(),
                 )
             }
             currentDestination = state.currentDestination?.route
@@ -45,9 +46,6 @@ class CalorieTrackerAppStateTest {
         }
         assertEquals("b", currentDestination)
     }
-
-    private fun getCompactWindowSizeClass() =
-        WindowSizeClass.calculateFromSize(DpSize(500.dp, 300.dp))
 }
 
 @Composable
