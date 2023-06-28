@@ -31,6 +31,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -118,8 +119,8 @@ private fun InputAmountArea(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(dimens.space16),
-        horizontalArrangement = Arrangement.SpaceBetween,
+            .padding(vertical = dimens.space16),
+        horizontalArrangement = Arrangement.Center,
         verticalAlignment = CenterVertically
     ) {
         FoodAmountTextField(
@@ -127,9 +128,9 @@ private fun InputAmountArea(
             trackableFoodUiState = trackableFoodUiState,
             onValueChange = onAmountChange,
             onTrack = onTrack,
-            modifier = Modifier.padding(dimens.space16)
+            modifier = Modifier
+                .padding(dimens.space16)
         )
-        Spacer(modifier = Modifier.width(dimens.space4))
         CalorieTrackerIconButton(
             onClick = onTrack,
             enabled = trackableFoodUiState.amount.isNotEmpty()
@@ -137,7 +138,6 @@ private fun InputAmountArea(
             Icon(
                 imageVector = Check,
                 contentDescription = stringResource(id = R.string.track),
-                tint = MaterialTheme.colorScheme.onSurface
             )
         }
     }
@@ -220,7 +220,8 @@ private fun FoodAmountTextField(
                 ImeAction.Done
             } else {
                 ImeAction.Default
-            }
+            },
+            keyboardType = KeyboardType.Decimal
         ),
         isError = isError,
         singleLine = true,

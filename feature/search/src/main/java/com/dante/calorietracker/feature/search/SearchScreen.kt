@@ -1,6 +1,8 @@
 package com.dante.calorietracker.feature.search
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -10,9 +12,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsTopHeight
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -35,9 +40,12 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.dante.calorietracker.core.data.mockTrackableFood
+import com.dante.calorietracker.core.model.MealType
 import com.dante.calorietracker.core.model.SearchArgs
 import com.dante.calorietracker.core.ui.R
 import com.dante.calorietracker.core.ui.component.CalorieTrackerIconButton
@@ -45,7 +53,9 @@ import com.dante.calorietracker.core.ui.component.ThemePreviews
 import com.dante.calorietracker.core.ui.icon.CalorieTrackerIcons
 import com.dante.calorietracker.core.ui.icon.CalorieTrackerIcons.ArrowBack
 import com.dante.calorietracker.core.ui.theme.CalorieTrackerTheme
+import com.dante.calorietracker.core.ui.unit.Dimensions
 import com.dante.calorietracker.core.ui.unit.LocalDimens
+import com.dante.calorietracker.feature.search.component.TrackableFoodItem
 
 @Composable
 internal fun SearchRoute(
@@ -56,17 +66,20 @@ internal fun SearchRoute(
 ) {
     val searchResultUiState by viewModel.searchResultUiState.collectAsStateWithLifecycle()
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
+    val trackableFoodUiStates by viewModel.trackableFoodUiStates.collectAsStateWithLifecycle()
     SearchScreen(
         modifier = modifier,
         searchResultUiState = searchResultUiState,
+        trackableFoodUiStates = trackableFoodUiStates,
         mealType = searchArgs.mealType,
-        dayOfMonth = searchArgs.dayOfMonth,
-        month = searchArgs.month,
-        year = searchArgs.year,
+        searchArgs = searchArgs,
         onBackClick = onBackClick,
         onSearchQueryChanged = viewModel::onQueryChanged,
         searchQuery = searchQuery,
         onSearchTriggered = viewModel::onSearchTriggered,
+        onToggleTrackableFood = viewModel::onToggleTrackableFood,
+        onAmountChange = viewModel::onAmountForFoodChanged,
+        onTrack = viewModel::onTrackFoodClick
     )
 }
 
@@ -74,14 +87,16 @@ internal fun SearchRoute(
 internal fun SearchScreen(
     modifier: Modifier = Modifier,
     searchResultUiState: SearchResultUiState = SearchResultUiState.Loading,
+    trackableFoodUiStates: List<TrackableFoodUiState>,
     mealType: String = "",
-    dayOfMonth: Int = 0,
-    month: Int = 0,
-    year: Int = 0,
+    searchArgs: SearchArgs,
     onBackClick: () -> Unit = {},
     onSearchQueryChanged: (String) -> Unit = {},
     searchQuery: String = "",
-    onSearchTriggered: (String) -> Unit = {}
+    onSearchTriggered: (String) -> Unit = {},
+    onToggleTrackableFood: (trackerFoodUiState: TrackableFoodUiState, isExpanded: Boolean) -> Unit = { _, _ -> },
+    onAmountChange: (trackerFoodUiState: TrackableFoodUiState, amount: String) -> Unit = { _, _ -> },
+    onTrack: (trackerFoodUiState: TrackableFoodUiState, searchArgs: SearchArgs) -> Unit = { _, _ -> },
 ) {
 
     val dimens = LocalDimens.current
@@ -112,32 +127,65 @@ internal fun SearchScreen(
             searchQuery = searchQuery,
             onSearchTriggered = onSearchTriggered
         )
+        Spacer(modifier = Modifier.height(dimens.space16))
+        when (searchResultUiState) {
+            SearchResultUiState.Loading -> {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
+            }
+
+            SearchResultUiState.LoadFailed, SearchResultUiState.SearchNotReady, SearchResultUiState.EmptyQuery -> Unit
+
+            is SearchResultUiState.Success -> {
+                if (searchResultUiState.isEmpty()) {
+                    Text(
+                        text = stringResource(id = R.string.no_results),
+                        style = MaterialTheme.typography.bodyLarge,
+                        textAlign = TextAlign.Center
+                    )
+                } else {
+                    SearchResultBody(
+                        trackableFoodUiStates = trackableFoodUiStates,
+                        searchArgs = searchArgs,
+                        dimensions = dimens,
+                        onToggleTrackableFood = onToggleTrackableFood,
+                        onAmountChange = onAmountChange,
+                        onTrack = onTrack
+                    )
+                }
+            }
+
+        }
     }
 }
 
 @Composable
-private fun SearchToolbar(
-    modifier: Modifier = Modifier,
-    onBackClick: () -> Unit,
-    onSearchQueryChanged: (String) -> Unit,
-    searchQuery: String = "",
-    onSearchTriggered: (String) -> Unit
+private fun SearchResultBody(
+    trackableFoodUiStates: List<TrackableFoodUiState>,
+    searchArgs: SearchArgs,
+    dimensions: Dimensions,
+    onToggleTrackableFood: (trackerFoodUiState: TrackableFoodUiState, isExpanded: Boolean) -> Unit,
+    onAmountChange: (trackerFoodUiState: TrackableFoodUiState, amount: String) -> Unit,
+    onTrack: (trackerFoodUiState: TrackableFoodUiState, searchArgs: SearchArgs) -> Unit
 ) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier.fillMaxWidth()
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxWidth(),
+        contentPadding = PaddingValues(
+            horizontal = dimensions.space16,
+            vertical = dimensions.space16
+        )
     ) {
-        CalorieTrackerIconButton(onClick = onBackClick) {
-            Icon(
-                imageVector = ArrowBack,
-                contentDescription = stringResource(id = R.string.back)
+        items(trackableFoodUiStates) { state ->
+            TrackableFoodItem(
+                trackableFoodUiState = state,
+                onClick = { onToggleTrackableFood(state, state.isExpanded) },
+                onAmountChange = { onAmountChange(state, it) },
+                onTrack = { onTrack(state, searchArgs) },
+                modifier = Modifier.fillMaxWidth()
             )
         }
-        SearchTextField(
-            onSearchQueryChanged = onSearchQueryChanged,
-            searchQuery = searchQuery,
-            onSearchTriggered = onSearchTriggered
-        )
     }
 }
 
@@ -213,20 +261,16 @@ private fun SearchTextField(
 
 @ThemePreviews
 @Composable
-fun SearchToolbarPrev() {
-    CalorieTrackerTheme {
-        SearchToolbar(
-            onBackClick = {},
-            onSearchQueryChanged = {},
-            onSearchTriggered = {}
-        )
-    }
-}
-
-@ThemePreviews
-@Composable
 fun SearchPrev() {
     CalorieTrackerTheme {
-        SearchScreen()
+        SearchScreen(
+            searchArgs = SearchArgs(
+                mealType = MealType.Breakfast.name,
+                dayOfMonth = 28,
+                month = 6,
+                year = 2023
+            ),
+            trackableFoodUiStates = listOf(TrackableFoodUiState(mockTrackableFood))
+        )
     }
 }

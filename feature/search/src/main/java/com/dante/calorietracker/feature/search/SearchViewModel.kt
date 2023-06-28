@@ -1,8 +1,5 @@
 package com.dante.calorietracker.feature.search
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -35,9 +32,6 @@ class SearchViewModel @Inject constructor(
     private val filterOutDigitsUseCase: FilterOutDigitsUseCase,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-
-    var state by mutableStateOf(SearchState())
-        private set
 
     private val _trackableFoodUiStates = MutableStateFlow<List<TrackableFoodUiState>>(listOf())
     val trackableFoodUiStates = _trackableFoodUiStates.asStateFlow()
@@ -116,16 +110,11 @@ class SearchViewModel @Inject constructor(
             _trackableFoodUiStates.value.mapOrReplace(trackerFoodUiState, newState)
     }
 
-//    fun onSearchFocusChanged(isFocused: Boolean) {
-//        state = state.copy(isHintVisible = !isFocused && state.query.isBlank())
-//    }
-
     fun onTrackFoodClick(
         trackerFoodUiState: TrackableFoodUiState,
         searchArgs: SearchArgs
     ) =
         viewModelScope.launch {
-//            val uiState = state.trackableFoodList.find { it.food == food }
             insertTrackedFoodUseCase(
                 trackableFood = trackerFoodUiState.food,
                 amount = trackerFoodUiState.amount.toIntOrNull() ?: return@launch,
