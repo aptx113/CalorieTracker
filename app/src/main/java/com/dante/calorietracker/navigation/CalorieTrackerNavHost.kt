@@ -3,6 +3,7 @@ package com.dante.calorietracker.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
+import androidx.navigation.navOptions
 import com.dante.calorietracker.feature.activity.navigation.activityScreen
 import com.dante.calorietracker.feature.activity.navigation.navigateToActivity
 import com.dante.calorietracker.feature.age.navigation.ageScreen
@@ -18,10 +19,10 @@ import com.dante.calorietracker.feature.nutrientGoal.navigation.nutrientGoalScre
 import com.dante.calorietracker.feature.search.navigation.navigateToSearch
 import com.dante.calorietracker.feature.search.navigation.searchScreen
 import com.dante.calorietracker.feature.tracker.navigation.navigateToTracker
-import com.dante.calorietracker.feature.tracker.navigation.trackerScreen
+import com.dante.calorietracker.feature.tracker.navigation.trackerGraph
+import com.dante.calorietracker.feature.tracker.navigation.trackerGraphRoutePattern
 import com.dante.calorietracker.feature.weight.navigation.navigateToWeight
 import com.dante.calorietracker.feature.weight.navigation.weightScreen
-import com.dante.calorietracker.feature.welcome.navigation.welcomeRoute
 import com.dante.calorietracker.feature.welcome.navigation.welcomeScreen
 import com.dante.calorietracker.ui.CalorieTrackerAppState
 
@@ -29,7 +30,7 @@ import com.dante.calorietracker.ui.CalorieTrackerAppState
 fun CalorieTrackerNavHost(
     appState: CalorieTrackerAppState,
     modifier: Modifier = Modifier,
-    startDestination: String = welcomeRoute
+    startDestination: String
 ) {
     val navController = appState.navController
     NavHost(
@@ -39,13 +40,25 @@ fun CalorieTrackerNavHost(
     ) {
         welcomeScreen { navController.navigateToGender() }
         activityScreen { navController.navigateToGoal() }
-        ageScreen(onNextClick = { navController.navigateToHeight() })
-        genderScreen(onNextClick = { navController.navigateToAge() })
-        goalScreen(onNavigated = { navController.navigateToNutrientGoal() })
+        ageScreen(onNextClick = { navController.navigateToHeight() }
+        )
+        genderScreen(onNextClick = { navController.navigateToAge() }
+        )
+        goalScreen(onNavigated = { navController.navigateToNutrientGoal() }
+        )
         heightScreen { navController.navigateToWeight() }
         nutrientGoalScreen { navController.navigateToTracker() }
-        searchScreen()
-        trackerScreen(onNavigated = {navController.navigateToSearch()})
+        trackerGraph(
+            onAddMealClick = { searchArgs -> navController.navigateToSearch(searchArgs = searchArgs) },
+            nestedGraphs = {
+                searchScreen(onBackClick = { navController.popBackStack() }, onTrackNavigated = {
+                    navController.navigateToTracker(
+                        navOptions { popUpTo(trackerGraphRoutePattern) { inclusive = true } }
+                    )
+                }
+                )
+            }
+        )
         weightScreen(onNavigated = { navController.navigateToActivity() })
     }
 }

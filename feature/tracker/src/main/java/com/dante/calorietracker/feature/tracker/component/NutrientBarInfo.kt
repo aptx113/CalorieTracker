@@ -22,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.dante.calorietracker.core.ui.R
+import com.dante.calorietracker.core.ui.component.UnitDisplay
 
 @Composable
 internal fun NutrientBarInfo(

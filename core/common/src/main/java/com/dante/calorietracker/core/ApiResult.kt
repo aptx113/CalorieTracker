@@ -1,5 +1,6 @@
 package com.dante.calorietracker.core
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -17,5 +18,8 @@ fun <T> Flow<T>.asApiResult(): Flow<ApiResult<T>> {
             ApiResult.Success(it)
         }
         .onStart { emit(ApiResult.Loading) }
-        .catch { emit(ApiResult.Error(it)) }
+        .catch {
+            Log.e("ApiResult", "Error: ${it.message}")
+            emit(ApiResult.Error(it))
+        }
 }

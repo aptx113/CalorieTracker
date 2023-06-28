@@ -1,4 +1,4 @@
-package com.dante.calorietracker.feature.tracker.component
+package com.dante.calorietracker.core.ui.component
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.sp
 import com.dante.calorietracker.core.ui.unit.LocalDimens
 
 @Composable
-internal fun UnitDisplay(
+fun UnitDisplay(
     amount: Int,
     unit: String,
     modifier: Modifier = Modifier,

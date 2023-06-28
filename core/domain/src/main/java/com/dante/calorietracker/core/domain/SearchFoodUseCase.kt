@@ -8,6 +8,10 @@ import javax.inject.Inject
 
 @ViewModelScoped
 class SearchFoodUseCase @Inject constructor(private val repository: TrackerRepository) {
-    operator fun invoke(query: String, page: Int, pageSize: Int): Flow<List<TrackableFood>> =
+    operator fun invoke(
+        query: String,
+        page: Int = 1,
+        pageSize: Int = 40
+    ): Flow<List<TrackableFood>> =
         repository.searchFood(query.trim(), page, pageSize)
 }

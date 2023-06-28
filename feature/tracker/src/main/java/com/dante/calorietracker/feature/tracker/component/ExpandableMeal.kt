@@ -21,6 +21,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import com.dante.calorietracker.core.ui.R
+import com.dante.calorietracker.core.ui.component.NutrientInfo
+import com.dante.calorietracker.core.ui.component.UnitDisplay
 import com.dante.calorietracker.core.ui.icon.CalorieTrackerIcons
 import com.dante.calorietracker.core.ui.unit.Dimensions
 import com.dante.calorietracker.core.ui.unit.LocalDimens

@@ -1,6 +1,7 @@
 package com.dante.calorietracker.feature.tracker.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -31,6 +31,7 @@ import coil.request.ImageRequest
 import com.dante.calorietracker.core.model.TrackedFood
 import com.dante.calorietracker.core.ui.R
 import com.dante.calorietracker.core.ui.component.CalorieTrackerIconButton
+import com.dante.calorietracker.core.ui.component.NutrientInfo
 import com.dante.calorietracker.core.ui.icon.CalorieTrackerIcons.Close
 import com.dante.calorietracker.core.ui.unit.LocalDimens
 
@@ -47,8 +48,9 @@ fun TrackedFoodItem(
             .clip(RoundedCornerShape(5.dp))
             .padding(dimens.space4)
             .shadow(elevation = 1.dp, shape = RoundedCornerShape(5.dp))
+            .background(MaterialTheme.colorScheme.surface)
             .padding(end = dimens.space16)
-            .wrapContentHeight(),
+            .height(100.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -57,7 +59,8 @@ fun TrackedFoodItem(
                 model = ImageRequest.Builder(context).data(trackedFood.imageUrl)
                     .crossfade(true)
                     .error(R.drawable.ic_burger)
-                    .fallback(R.drawable.ic_burger),
+                    .fallback(R.drawable.ic_burger)
+                    .build(),
             ),
             contentDescription = trackedFood.name,
             contentScale = ContentScale.Crop,

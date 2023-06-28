@@ -63,4 +63,6 @@
     <string name="error_not_100_percent">The values must add up to 100%</string>
     <string name="your_goal">Your goal:</string>
     <string name="delete">Delete</string>
+    <string name="clear_search_text_content_desc">Clear search text</string>
+    <string name="back">Back</string>
 </resources>
