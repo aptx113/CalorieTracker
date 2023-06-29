@@ -33,6 +33,7 @@ dependencies {
     api(libs.hilt.android.testing)
     api(libs.mockk)
     api(libs.mockk.android)
+    api(libs.okhttp.mockwebserver)
 
     debugApi(libs.androidx.compose.ui.testManifest)
 }

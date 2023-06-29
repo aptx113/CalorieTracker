@@ -8,6 +8,9 @@ plugins {
 
 android {
     namespace = "com.dante.calorietracker.core.network"
+    defaultConfig {
+        testInstrumentationRunner = "com.dante.calorietracker.core.testing.CalorieTrackerTestRunner"
+    }
     buildFeatures {
         buildConfig = true
     }
