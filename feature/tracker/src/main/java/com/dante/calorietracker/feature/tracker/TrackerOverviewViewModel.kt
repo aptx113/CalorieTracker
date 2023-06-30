@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dante.calorietracker.core.data.repository.UserDataRepository
 import com.dante.calorietracker.core.domain.CalculateMealNutrientsUseCase
 import com.dante.calorietracker.core.domain.DeleteTrackedFoodUseCase
 import com.dante.calorietracker.core.domain.GetFoodsForDateUseCase
@@ -24,7 +23,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TrackerOverviewViewModel @Inject constructor(
-    private val userDataRepository: UserDataRepository,
     private val deleteTrackedFoodUseCase: DeleteTrackedFoodUseCase,
     private val getFoodsForDateUseCase: GetFoodsForDateUseCase,
     private val calculateMealNutrientsUseCase: CalculateMealNutrientsUseCase
@@ -113,9 +111,4 @@ class TrackerOverviewViewModel @Inject constructor(
             }
         }
     }
-}
-
-sealed interface TrackerOverviewUiState {
-    object Loading : TrackerOverviewUiState
-    data class Success(val state: TrackerOverviewState) : TrackerOverviewUiState
 }

@@ -50,13 +50,13 @@ internal fun TrackerOverviewRoute(
 
 @Composable
 internal fun TrackerOverviewScreen(
-    trackerState: TrackerOverviewState,
-    onNavigated: (SearchArgs) -> Unit,
-    onPreviousDayClick: () -> Unit,
-    onNextDayClick: () -> Unit,
-    onToggleClick: (Meal) -> Unit,
-    onDeleteClick: (TrackedFood) -> Unit,
-    onAddFoodClick: (Meal, (SearchArgs) -> Unit) -> Unit,
+    trackerState: TrackerOverviewState = TrackerOverviewState(),
+    onNavigated: (SearchArgs) -> Unit = {},
+    onPreviousDayClick: () -> Unit = {},
+    onNextDayClick: () -> Unit = {},
+    onToggleClick: (Meal) -> Unit = {},
+    onDeleteClick: (TrackedFood) -> Unit = {},
+    onAddFoodClick: (Meal, (SearchArgs) -> Unit) -> Unit = { _, _ -> },
     onMealsRefresh: () -> Unit = {},
 ) {
     val spacing = LocalDimens.current
